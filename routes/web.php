@@ -4,11 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\paginacontroller;
 use App\Http\Controllers\pqrscontroller;
 
-Route::get('/', [paginacontroller::class, 'inicio'])->name('inicio'); 
-Route::get('/menu', [paginacontroller::class, 'menu'])->name('menu');
-Route::get('/contacto', [paginacontroller::class, 'contacto'])->name('contacto');
-Route::get('/nosotros', [paginacontroller::class, 'nosotros'])->name('nosotros');
-Route::get('/mensajes', [paginacontroller::class, 'mensajes'])->name('mensajes');
+Route::get('/', [paginaController::class, 'inicio'])->name('inicio'); 
+Route::get('/menu', [paginaController::class, 'menu'])->name('menu');
+Route::get('/contacto', [paginaController::class, 'contacto'])->name('contacto');
+Route::get('/nosotros', [paginaController::class, 'nosotros'])->name('nosotros');
+Route::get('/mensaje', [paginaController::class, 'mensaje'])->name('mensaje');
+
+Route::post('/pqrs', [PqrsController::class, 'store'])->name('pqrs.store');
 
 
 Route::get('/', function () {

@@ -242,48 +242,6 @@
     </div>
 </div>
 
-{{-- Formulario + Mapa --}}
-<div class="row g-4 mb-2">
-    <div class="col-md-7">
-        <div class="tg-form-card">
-            <h2 class="tg-form-title">Envíanos un mensaje</h2>
-            <p class="tg-form-subtitle">Responderemos a la brevedad posible</p>
-            <form action="" method="POST">
-                @csrf
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label>Nombres</label>
-                        <input type="text" class="form-control" placeholder="Tu nombre">
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label>Apellidos</label>
-                        <input type="text" class="form-control" placeholder="Tu apellido">
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label>Correo electrónico</label>
-                    <input type="email" class="form-control" placeholder="correo@ejemplo.com">
-                </div>
-                <div class="mb-3">
-                    <label>Asunto</label>
-                    <select class="form-select">
-                        <option value="">Selecciona un asunto</option>
-                        <option>Información general</option>
-                        <option>Reservas</option>
-                        <option>Pedidos especiales</option>
-                        <option>Sugerencias</option>
-                        <option>Otro</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label>Mensaje</label>
-                    <textarea class="form-control" rows="4" placeholder="Escribe tu mensaje aquí..."></textarea>
-                </div>
-                <button type="submit" class="tg-btn-enviar">Enviar mensaje →</button>
-            </form>
-            <p class="tg-form-note">* Este formulario es únicamente informativo — proyecto académico.</p>
-        </div>
-    </div>
 
     {{-- Mapa --}}
     <div class="col-md-5">
