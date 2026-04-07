@@ -3,29 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Pqrs;
 
-class paginacontroller extends Controller
+class PaginaController extends Controller
 {
     public function inicio()
     {
-    return View('inicio');
+        return view('inicio');
     }
 
     public function contacto()
     {
-    return View('contacto');
+        return view('contacto');
     }
-    
-    public function mensaje()
-    {
-    return View('mensaje');
-    }
+
+
     public function nosotros()
     {
-    return View('nosotros');
+        return view('nosotros');
     }
+
     public function menu()
     {
-    return View('menu');
+        return view('menu');
     }
 }

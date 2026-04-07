@@ -148,6 +148,7 @@
                 <li class="nav-item"><a class="nav-link" href="{{ route('menu') }}">Menú</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('nosotros') }}">Nosotros</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('contacto') }}">Contacto</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('mensaje') }}">Mensaje</a></li>
             </ul>
         </div>
     </div>

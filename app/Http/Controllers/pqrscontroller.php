@@ -28,4 +28,10 @@ class PqrsController extends Controller
 
         return redirect()->route('nosotros')->with('success', 'Mensaje enviado correctamente');
     }
+
+    public function index()
+    {
+        $mensajes = pqrs::orderBy('id', 'desc')->get();
+        return view('mensaje', compact('mensajes'));
+    }
 }
