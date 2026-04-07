@@ -115,8 +115,6 @@
         font-weight: 300; font-family: 'DM Sans', sans-serif;
     }
 
-
-
     /* Cita */
     .tg-quote {
         border-left: 2px solid #d4a855;
@@ -149,12 +147,10 @@
 
 {{-- Historia --}}
 <div class="tg-historia row">
-    
     <div class="col-md-5 text-center">
         <img src="https://www.cideu.org/wp-content/uploads/Pasto1.jpg" class="img-fluid mb-3">
         <img src="https://buengusto.co/wp-content/uploads/2024/04/CUON-PASTO-1.jpg" class="img-fluid">
     </div>
-
     <div class="col-md-6 tg-historia-text">
         <span class="tg-section-label">Nuestra historia</span>
         <h2>Nacimos entre montañas y granos de café</h2>
@@ -168,8 +164,8 @@
             calidad, cultivados a más de 1.800 metros de altura.
         </p>
     </div>
-
 </div>
+
 {{-- Valores --}}
 <div class="tg-category-label">🌿 Nuestros valores</div>
 <div class="row g-3 mb-5">
@@ -203,8 +199,6 @@
     </div>
 </div>
 
-
-    
 {{-- Cita --}}
 <div class="tg-quote">
     <p>"El café une personas, historias y culturas — eso es lo que somos en Tinto Galeras."</p>
@@ -213,49 +207,60 @@
 
 <hr class="my-5">
 
-<h3 class="text-center mb-4">Formulario de PQRS</h3>
+{{-- Formulario PQRS --}}
+<h3 class="text-center mb-4" style="color: #fcf3ee; font-family: 'Cormorant Garamond', serif; font-style: italic;">
+    Formulario de PQRS
+</h3>
+
+@if(session('success'))
+    <div class="alert alert-success text-center">{{ session('success') }}</div>
+@endif
+
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card shadow p-4">
-            <form action="{{route('pqrs.store') }}" method="POST">
+            <form action="{{ route('pqrs.store') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label>Nombres</label>
-                        <input type="text" class="form-control">
+                        <label class="form-label">Nombres</label>
+                        <input type="text" name="nombres" class="form-control @error('nombres') is-invalid @enderror" value="{{ old('nombres') }}" required>
+                        @error('nombres') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label>Apellidos</label>
-                        <input type="text" class="form-control">
+                        <label class="form-label">Apellidos</label>
+                        <input type="text" name="apellidos" class="form-control @error('apellidos') is-invalid @enderror" value="{{ old('apellidos') }}" required>
+                        @error('apellidos') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label>Correo electrónico</label>
-                    <input type="email" class="form-control">
+                    <label class="form-label">Correo electrónico</label>
+                    <input type="email" name="correos" class="form-control @error('correos') is-invalid @enderror" value="{{ old('correos') }}" required>
+                    @error('correos') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
                 <div class="mb-3">
-                    <label>Tipo de solicitud</label>
-                    <select class="form-select">
-                        <option>Queja</option>
-                        <option>Petición</option>
-                        <option>Felicitación</option>
+                    <label class="form-label">Tipo de solicitud</label>
+                    <select name="tipo" class="form-select">
+                        <option value="Queja"      {{ old('tipo') == 'Queja'       ? 'selected' : '' }}>Queja</option>
+                        <option value="Petición"   {{ old('tipo') == 'Petición'    ? 'selected' : '' }}>Petición</option>
+                        <option value="Felicitación" {{ old('tipo') == 'Felicitación' ? 'selected' : '' }}>Felicitación</option>
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label>Mensaje</label>
-                    <textarea class="form-control" rows="4"></textarea>
+                    <label class="form-label">Mensaje</label>
+                    <textarea name="mensaje" class="form-control @error('mensaje') is-invalid @enderror" rows="4" required>{{ old('mensaje') }}</textarea>
+                    @error('mensaje') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
                 <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox">
-                    <label class="form-check-label">
-                        Acepto términos y condiciones
-                    </label>
+                    <input class="form-check-input @error('acepto') is-invalid @enderror" type="checkbox" name="acepto" value="1" {{ old('acepto') ? 'checked' : '' }} required>
+                    <label class="form-check-label">Acepto términos y condiciones</label>
+                    @error('acepto') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
-                <button type="button" class="btn btn-dark w-100">
+                <button type="submit" class="btn btn-dark w-100">
                     Enviar
                 </button>
             </form>
-            <small class="text-muted">
+            <small class="text-muted mt-2 d-block">
                 Este formulario es únicamente informativo.
             </small>
         </div>
