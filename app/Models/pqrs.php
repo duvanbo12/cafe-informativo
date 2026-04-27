@@ -15,5 +15,4 @@ class pqrs extends Model
         'mensaje',
         'acepto',
     ];
-    
 }

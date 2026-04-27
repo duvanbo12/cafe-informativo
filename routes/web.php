@@ -11,3 +11,7 @@ Route::get('/contacto', [PaginaController::class, 'contacto'])->name('contacto')
 
 Route::post('/pqrs', [PqrsController::class, 'store'])->name('pqrs.store');
 Route::get('/mensaje', [PqrsController::class, 'index'])->name('mensaje');
+
+Route::get('/mensaje/{id}/editar',  [PqrsController::class, 'edit'])->name('mensajes.edit');
+Route::put('/mensaje/{id}',         [PqrsController::class, 'update'])->name('mensajes.update');
+Route::delete('/mensaje/{id}',      [PqrsController::class, 'destroy'])->name('mensajes.destroy');

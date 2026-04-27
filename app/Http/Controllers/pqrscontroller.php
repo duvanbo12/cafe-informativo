@@ -8,13 +8,14 @@ class PqrsController extends Controller
 {
     public function store(Request $request)
     {
-        $request->validate([
-            'nombres'  => 'required|string|max:100',
+        
+        $validated = $request->validate([
+            'nombres'   => 'required|string|max:100',
             'apellidos' => 'required|string|max:100',
-            'correos'  => 'required|email',
-            'tipo'     => 'required|in:Queja,Petición,Felicitación',
-            'mensaje'  => 'required|string',
-            'acepto'   => 'accepted',
+            'correos'   => 'required|email',
+            'tipo'      => 'required|in:Queja,Petición,Felicitación',
+            'mensaje'   => 'required|string',
+            'acepto'    => 'accepted',
         ]);
 
         Pqrs::create([
@@ -31,27 +32,29 @@ class PqrsController extends Controller
 
     public function index()
     {
-        $mensajes = pqrs::orderBy('id', 'desc')->get();
+        $mensajes = Pqrs::orderBy('id', 'desc')->get();
         return view('mensaje', compact('mensajes'));
     }
-    public function edit($id){
+
+    public function edit($id)
+    {
         $mensaje = Pqrs::findOrFail($id);
-        return view ('editar_mensaje', compact('mensaje'));
+        return view('editar_mensaje', compact('mensaje'));
     }
 
-     public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'nombres'  => 'required|string|max:100',
+            'nombres'   => 'required|string|max:100',
             'apellidos' => 'required|string|max:100',
-            'correos'  => 'required|email',
-            'tipo'     => 'required|in:Queja,Petición,Felicitación',
-            'mensaje'  => 'required|string',
-            'acepto'   => 'accepted',
+            'correos'   => 'required|email',
+            'tipo'      => 'required|in:Queja,Petición,Felicitación',
+            'mensaje'   => 'required|string',
         ]);
-        $mensaje =Pqrs::findOrFild($id);
 
-        $mensaje::update([
+        $mensaje = Pqrs::findOrFail($id);  // ✅ findOrFail correcto
+
+        $mensaje->update([                  // ✅ -> en vez de ::
             'nombres'   => $request->nombres,
             'apellidos' => $request->apellidos,
             'correos'   => $request->correos,
@@ -63,5 +66,11 @@ class PqrsController extends Controller
         return redirect()->route('mensaje')->with('success', 'Actualizado correctamente');
     }
 
-    
+    public function destroy($id)
+    {
+        $mensaje = Pqrs::findOrFail($id);
+        $mensaje->delete();
+
+        return redirect()->route('mensaje')->with('success', 'Mensaje eliminado correctamente');
+    }
 }

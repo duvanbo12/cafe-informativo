@@ -17,6 +17,7 @@
                 <th>Correo</th>
                 <th>Tipo</th>
                 <th>Mensaje</th>
+                <th>Acciones</th>
                 <th>Acepto</th>
             </tr>
         </thead>
@@ -30,6 +31,24 @@
                 <td>{{ $mensaje->tipo }}</td>
                 <td>{{ $mensaje->mensaje }}</td>
                 <td>{{ $mensaje->acepto ? 'Sí' : 'No' }}</td>
+                <td>
+                    <a href="{{ route('mensajes.edit', $mensaje->id) }}"
+                       class="btn btn-warning btn-sm">
+                        Editar
+                    </a>
+
+                    <form action="{{ route('mensajes.destroy', $mensaje->id) }}"
+                          method="POST"
+                          style="display:inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                                class="btn btn-danger btn-sm"
+                                onclick="return confirm('¿Eliminar mensaje?')">
+                            Eliminar
+                        </button>
+                    </form>
+                </td>
             </tr>
             @empty
             <tr>

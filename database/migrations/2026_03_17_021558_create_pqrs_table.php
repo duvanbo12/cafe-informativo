@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombres');
             $table->string('apellidos');
-            $table->string('correos');
+            $table->string('correo');
             $table->enum('tipo', ['Queja', 'Petición', 'Felicitación']);
             $table->text('mensaje');
             $table->boolean('acepto')->default(false);
