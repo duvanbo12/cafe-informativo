@@ -19,7 +19,6 @@
             background-blend-mode: overlay;
         }
 
-        /* ── Footer ── */
         .tg-footer-main {
             background-color: #20140f;
             color: #f4c79e;
@@ -71,7 +70,6 @@
             transition: color 0.2s;
         }
         .tg-footer-link:hover { color: #e8c98a; }
-
         .tg-footer-contact p {
             font-size: 0.85rem;
             font-weight: 300;
@@ -83,7 +81,6 @@
             margin-right: 0.4rem;
             font-size: 0.9rem;
         }
-
         .tg-social-btn {
             display: inline-flex;
             align-items: center;
@@ -104,7 +101,6 @@
             border-color: #d4a855;
             color: #1e0e04;
         }
-
         .tg-footer-divider {
             border-color: #7a4a2a;
             margin: 2rem 0 0;
@@ -119,17 +115,9 @@
             font-family: 'DM Sans', sans-serif;
         }
         .tg-footer-bottom strong { color: #ffffff; }
-        .navbar {
-    padding: 1.5rem 0;
-}
-
-.navbar-brand {
-    font-size: 1.5rem;
-}
-
-.nav-link {
-    font-size: 1.1rem;
-}
+        .navbar { padding: 1.5rem 0; }
+        .navbar-brand { font-size: 1.5rem; }
+        .nav-link { font-size: 1.1rem; }
     </style>
 </head>
 <body>
@@ -148,7 +136,45 @@
                 <li class="nav-item"><a class="nav-link" href="{{ route('menu') }}">Menú</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('nosotros') }}">Nosotros</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('contacto') }}">Contacto</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('mensaje') }}">Mensaje</a></li>
+
+                @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">
+                            <i class="bi bi-person-plus"></i> Registro
+                        </a>
+                    </li>
+                @endguest
+
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dashboard') }}">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('mensajes') }}">
+                            <i class="bi bi-envelope"></i> Mensajes
+                        </a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center">
+                        <span class="nav-link text-warning">
+                            <i class="bi bi-person-circle"></i> {{ Auth::user()->name }}
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="btn btn-link nav-link">
+                                <i class="bi bi-box-arrow-right"></i> Salir
+                            </button>
+                        </form>
+                    </li>
+                @endauth
             </ul>
         </div>
     </div>
@@ -163,8 +189,6 @@
 <footer class="tg-footer-main">
     <div class="container">
         <div class="row g-4 pb-3">
-
-            {{-- Logo y redes --}}
             <div class="col-md-4">
                 <div class="tg-footer-logo">
                     ☕ Tinto Nariño
@@ -179,8 +203,6 @@
                     <a href="#" class="tg-social-btn" title="YouTube"><i class="bi bi-youtube"></i></a>
                 </div>
             </div>
-
-            {{-- Navegación --}}
             <div class="col-md-2">
                 <p class="tg-footer-heading">Navegación</p>
                 <a href="{{ route('inicio') }}" class="tg-footer-link">Inicio</a>
@@ -188,8 +210,6 @@
                 <a href="{{ route('nosotros') }}" class="tg-footer-link">Nosotros</a>
                 <a href="{{ route('contacto') }}" class="tg-footer-link">Contacto</a>
             </div>
-
-            {{-- Contacto --}}
             <div class="col-md-3 tg-footer-contact">
                 <p class="tg-footer-heading">Contáctanos</p>
                 <p><i class="bi bi-geo-alt-fill"></i> Pasto, Nariño, Colombia</p>
@@ -197,8 +217,6 @@
                 <p><i class="bi bi-envelope-fill"></i> info@tintonarino.com</p>
                 <p><i class="bi bi-whatsapp"></i> WhatsApp: 300 000 0000</p>
             </div>
-
-            {{-- Horarios --}}
             <div class="col-md-3 tg-footer-contact">
                 <p class="tg-footer-heading">Horarios</p>
                 <p><i class="bi bi-clock-fill"></i> Lunes a Viernes</p>
@@ -206,12 +224,9 @@
                 <p><i class="bi bi-clock-fill"></i> Sábados y Domingos</p>
                 <p style="padding-left:1.3rem; margin-top:-0.2rem;">8:00 am — 6:00 pm</p>
             </div>
-
         </div>
     </div>
-
     <hr class="tg-footer-divider">
-
     <div class="tg-footer-bottom">
         © 2026 Tinto Nariño. Todos los derechos reservados. —
         Desarrollado por: <strong>Duvan Botina</strong> & <strong>Miguel Legarda</strong>
@@ -219,6 +234,5 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>

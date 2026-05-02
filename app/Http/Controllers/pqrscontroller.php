@@ -63,7 +63,7 @@ class PqrsController extends Controller
             'acepto'    => $request->has('acepto'),
         ]);
 
-        return redirect()->route('mensaje')->with('success', 'Actualizado correctamente');
+        return redirect()->route('mensajes')->with('success', 'Actualizado correctamente');
     }
 
     public function destroy($id)
@@ -71,6 +71,6 @@ class PqrsController extends Controller
         $mensaje = Pqrs::findOrFail($id);
         $mensaje->delete();
 
-        return redirect()->route('mensaje')->with('success', 'Mensaje eliminado correctamente');
+        return redirect()->route('mensajes')->with('success', 'Mensaje eliminado correctamente');
     }
 }
