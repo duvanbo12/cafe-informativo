@@ -20,7 +20,7 @@
         }
 
         .tg-footer-main {
-            background-color: #20140f;
+            background-color: #000000;
             color: #f4c79e;
             padding: 2.5rem 0 0;
             margin-top: 3rem;
@@ -123,7 +123,7 @@
 <body>
 
 {{-- Navbar --}}
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #422c21;">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #000000;">
     <div class="container">
         <a class="navbar-brand fw-bold" style="font-family: 'Playfair Display', serif;"
            href="{{ route('inicio') }}">☕ Tinto Nariño</a>

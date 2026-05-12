@@ -5,183 +5,208 @@
 @section('content')
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@300;400;500&display=swap');
 
+    :root {
+        --cafe-dark: #2c1810;
+        --cafe-gold: #d4a855;
+        --cafe-light: #fdf8f5;
+        --cafe-accent: #c4956a;
+    }
+
+    /* Hero Section */
     .tg-hero {
         position: relative;
-        height: 320px;
+        height: 450px; /* Un poco más alto para mayor impacto */
         overflow: hidden;
-        border-radius: 12px;
-        margin-bottom: 2.5rem;
+        border-radius: 16px;
+        margin-bottom: 4rem;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     }
     .tg-hero img {
         width: 100%; height: 100%;
         object-fit: cover;
-        filter: brightness(0.45) saturate(0.8);
+        filter: brightness(0.4) saturate(0.9);
+        transition: transform 10s ease;
     }
+    .tg-hero:hover img { transform: scale(1.05); }
+
     .tg-hero-overlay {
         position: absolute; inset: 0;
         display: flex; flex-direction: column;
         align-items: center; justify-content: center;
-        text-align: center; padding: 1rem;
+        text-align: center; padding: 2rem;
     }
     .tg-hero-tag {
-        border: 1px solid #d4a855; color: #d4a855;
-        font-size: 0.6rem; letter-spacing: 4px;
-        text-transform: uppercase; padding: 3px 14px;
-        border-radius: 20px; margin-bottom: 1rem;
+        border: 1px solid var(--cafe-gold); 
+        color: var(--cafe-gold);
+        font-size: 0.7rem; letter-spacing: 5px;
+        text-transform: uppercase; padding: 6px 20px;
+        border-radius: 30px; margin-bottom: 1.5rem;
+        backdrop-filter: blur(4px);
     }
     .tg-hero-overlay h1 {
         font-family: 'Cormorant Garamond', serif;
-        font-size: 3rem; color: rgb(255, 255, 255);
-        font-style: italic; line-height: 1.1; margin-bottom: 0.4rem;
+        font-size: clamp(2.5rem, 6vw, 4.5rem); 
+        color: #ffffff;
+        font-weight: 500; line-height: 1; margin-bottom: 1rem;
     }
     .tg-hero-overlay p {
-        color: #c4956a; font-size: 0.75rem;
-        letter-spacing: 4px; text-transform: uppercase;
-        font-weight: 300; margin: 0;
+        color: var(--cafe-accent); 
+        font-size: 0.85rem;
+        letter-spacing: 5px; text-transform: uppercase;
+        font-weight: 400; margin: 0;
     }
-    .tg-line { width: 40px; height: 1px; background: #d4a855; margin: 1rem auto 0; }
 
+    /* Welcome Section */
     .tg-section-label {
-        font-size: 0.65rem; letter-spacing: 4px;
-        text-transform: uppercase; color: #ffe1d0;
-        margin-bottom: 0.4rem; font-weight: 400;
+        font-size: 0.75rem; letter-spacing: 3px;
+        text-transform: uppercase; color: var(--cafe-gold);
+        margin-bottom: 0.8rem; font-weight: 600;
     }
     .tg-welcome-title {
         font-family: 'Cormorant Garamond', serif;
-        font-size: 2rem; color: #ffffff;
-        font-style: italic; margin-bottom: 1rem; line-height: 1.2;
+        font-size: 2.8rem; color: var(--cafe-dark);
+        line-height: 1.1; margin-bottom: 1.5rem;
     }
     .tg-welcome-body {
-        color: #f7f3f1; font-size: 0.92rem;
-        line-height: 1.9; font-weight: 300;
+        color: #5a4a42; font-size: 1.05rem;
+        line-height: 1.8; font-weight: 300;
     }
 
     .tg-btn-cafe {
         display: inline-block;
-        border: 1px solid #fae5da; color: #f3efed;
-        padding: 0.55rem 1.6rem; border-radius: 3px;
-        font-size: 0.78rem; letter-spacing: 2px;
-        text-transform: uppercase; margin-top: 0.8rem;
-        text-decoration: none; transition: all 0.2s;
+        background: var(--cafe-dark);
+        color: #fff;
+        padding: 0.8rem 2.2rem;
+        border-radius: 50px;
+        font-size: 0.85rem; letter-spacing: 2px;
+        text-transform: uppercase; margin-top: 1.5rem;
+        text-decoration: none; transition: all 0.3s ease;
         font-family: 'DM Sans', sans-serif;
     }
-    .tg-btn-cafe:hover { background: #42291b; color: #fff; }
+    .tg-btn-cafe:hover {
+        background: var(--cafe-gold);
+        transform: translateY(-2px);
+        color: #fff;
+        box-shadow: 0 10px 20px rgba(212, 168, 85, 0.3);
+    }
 
     .tg-img-side {
-        width: 100%; height: 280px;
-        object-fit: cover; border-radius: 10px;
-        filter: brightness(0.9) saturate(1.1);
+        width: 100%; height: 400px;
+        object-fit: cover; border-radius: 20px;
+        box-shadow: 20px 20px 0px var(--cafe-light);
     }
 
-    .tg-img-bottom {
-        width: 100%; height: 220px;
-        object-fit: cover; border-radius: 10px;
-        filter: brightness(0.85) saturate(1.1);
-        margin-bottom: 2.5rem;
-    }
-
+    /* Cards */
     .tg-card {
-        background: rgb(255, 237, 228);
-        border: 1px solid #e8d5bc;
-        border-radius: 10px; padding: 1.4rem;
+        background: #ffffff;
+        border: 1px solid #eee7e0;
+        border-radius: 16px; padding: 2rem;
         text-align: center; height: 100%;
-        transition: transform 0.2s, box-shadow 0.2s;
-        backdrop-filter: blur(4px);
+        transition: all 0.3s ease;
     }
     .tg-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 24px rgba(59, 26, 8, 0.12);
+        transform: translateY(-8px);
+        border-color: var(--cafe-gold);
+        box-shadow: 0 15px 35px rgba(44, 24, 16, 0.08);
+    }
+    .tg-card .icon-box {
+        font-size: 2rem; margin-bottom: 1rem;
+        display: block;
     }
     .tg-card h5 {
         font-family: 'Cormorant Garamond', serif;
-        color: #000000; font-size: 1rem; margin-bottom: 0.3rem;
+        color: var(--cafe-dark); font-size: 1.4rem; font-weight: 600;
     }
-    .tg-card p { color: #724c2f; font-size: 0.78rem; font-weight: 300; margin: 0; }
+    .tg-card p { color: #8e7d74; font-size: 0.9rem; margin: 0; }
 
+    /* Quote */
     .tg-quote {
-        border-left: 2px solid #d4a855;
-        padding: 1rem 1.5rem;
-        background: rgb(255, 248, 239);
-        border-radius: 0 8px 8px 0;
-        backdrop-filter: blur(4px);
-        margin-bottom: 1rem;
+        margin: 4rem 0;
+        padding: 3rem;
+        background: var(--cafe-light);
+        border-radius: 20px;
+        text-align: center;
+        border-left: 4px solid var(--cafe-gold);
     }
     .tg-quote p {
         font-family: 'Cormorant Garamond', serif;
-        font-style: italic; font-size: 1.15rem;
-        color: #3b1a08; line-height: 1.7; margin: 0;
+        font-style: italic; font-size: 1.6rem;
+        color: var(--cafe-dark); line-height: 1.4; margin: 0;
     }
     .tg-quote span {
-        display: block; margin-top: 0.5rem;
-        font-size: 0.72rem; color: #9a7055;
-        letter-spacing: 2px; font-weight: 300;
-        font-family: 'DM Sans', sans-serif;
+        display: block; margin-top: 1rem;
+        font-size: 0.8rem; color: var(--cafe-gold);
+        letter-spacing: 3px; text-transform: uppercase;
+    }
+
+    @media (max-width: 768px) {
+        .tg-hero { height: 350px; }
+        .tg-welcome-title { font-size: 2rem; }
+        .tg-img-side { height: 300px; box-shadow: 10px 10px 0px var(--cafe-light); }
     }
 </style>
 
-{{-- Hero: imagen 1 de fondo --}}
+{{-- Hero --}}
 <div class="tg-hero">
     <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&q=80" alt="Café nariñense">
     <div class="tg-hero-overlay">
         <div class="tg-hero-tag">Pasto, Nariño — Colombia</div>
         <h1>Tinto Nariño</h1>
-        <p>El mejor café del sur de Colombia</p>
-        <div class="tg-line"></div>
+        <p>Tradición en cada grano</p>
     </div>
 </div>
 
-{{-- Bienvenida + imagen 2 al lado --}}
-<div class="row align-items-center mb-5">
-    <div class="col-md-7">
-        <div class="tg-section-label">Bienvenidos</div>
+{{-- Bienvenida --}}
+<div class="row align-items-center mb-5 pb-5">
+    <div class="col-md-6 pe-md-5">
+        <div class="tg-section-label">Nuestra Esencia</div>
         <h2 class="tg-welcome-title">Una experiencia única en cada taza</h2>
-        <h1 class="tg-welcome-body">
-            Bienvenido a <strong>Tinto Nariño</strong>, donde podrás disfrutar del auténtico
-            sabor del café nariñense, preparado con dedicación y amor por nuestra tierra.
-        </h1>
-        <p class="tg-welcome-body mt-2">
-            Relájate, comparte buenos momentos y déjate conquistar por el aroma de nuestras montañas. ☕
+        <p class="tg-welcome-body">
+            Bienvenido a <strong>Tinto Nariño</strong>, un refugio donde el aroma de las montañas se encuentra con la calidez de nuestra gente. Preparamos cada tinto con la dedicación que solo nuestra tierra puede inspirar.
         </p>
-        <a href="{{ route('menu') }}" class="tg-btn-cafe">Ver Menú →</a>
+        <p class="tg-welcome-body">
+            Relájate, comparte buenos momentos y déjate conquistar por el auténtico sabor del sur colombiano. ☕
+        </p>
+        <a href="{{ route('menu') }}" class="tg-btn-cafe">Explorar Menú</a>
     </div>
-    <div class="col-md-5 mt-4 mt-md-0">
-        <img class="tg-img-side"
-             src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2f/a9/94/c2/nuestro-local.jpg"
-             alt="Barista preparando café">
+    <div class="col-md-6 mt-5 mt-md-0">
+        <img class="tg-img-side" 
+             src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2f/a9/94/c2/nuestro-local.jpg" 
+             alt="Nuestro local en Pasto">
     </div>
 </div>
 
-{{-- Tarjetas --}}
-<div class="row text-center mb-5">
-    <div class="col-md-4 mb-3">
+{{-- Beneficios/Tarjetas --}}
+<div class="row g-4 mb-5">
+    <div class="col-md-4">
         <div class="tg-card">
-            <div style="font-size:1.8rem; margin-bottom:0.6rem;">☕</div>
-            <h5>Café de origen</h5>
-            <p>Directo de las montañas de Nariño</p>
+            <span class="icon-box">☕</span>
+            <h5>Café de Origen</h5>
+            <p>Seleccionado cuidadosamente de las fincas con mayor altura en Nariño.</p>
         </div>
     </div>
-    <div class="col-md-4 mb-3">
+    <div class="col-md-4">
         <div class="tg-card">
-            <div style="font-size:1.8rem; margin-bottom:0.6rem;">🌿</div>
-            <h5>100% natural</h5>
-            <p>Sin conservantes ni aditivos</p>
+            <span class="icon-box">🌿</span>
+            <h5>Proceso Artesanal</h5>
+            <p>Respetamos los tiempos naturales para garantizar un sabor 100% puro.</p>
         </div>
     </div>
-    <div class="col-md-4 mb-3">
+    <div class="col-md-4">
         <div class="tg-card">
-            <div style="font-size:1.8rem; margin-bottom:0.6rem;">❤️</div>
-            <h5>Hecho con amor</h5>
-            <p>Tradición cafetera nariñense</p>
+            <span class="icon-box">❤️</span>
+            <h5>Identidad Local</h5>
+            <p>Somos el reflejo de la cultura cafetera y el orgullo de nuestra región.</p>
         </div>
     </div>
 </div>
 
 {{-- Cita --}}
-<div class="tg-quote mb-5">
-    <p>"El café nariñense no es solo una bebida — es una historia de montañas, manos y dedicación."</p>
-    <span>— Tradición cafetera del sur de Colombia</span>
+<div class="tg-quote">
+    <p>"El café de Nariño no es solo una bebida; es una historia escrita por manos campesinas en el corazón de los Andes."</p>
+    <span>— Orgullo Volcánico</span>
 </div>
 
 @endsection
