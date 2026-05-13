@@ -8,7 +8,7 @@
 </h2>
 
 <div class="table-responsive">
-    <table class="table table-bordered table-striped" style="background: rgba(255,248,240,0.92);">
+    <table id="tablaMensajes"class="table table-bordered table-striped" style="background: rgba(255,248,240,0.92);">
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
