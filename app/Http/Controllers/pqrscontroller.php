@@ -52,9 +52,9 @@ class PqrsController extends Controller
             'mensaje'   => 'required|string',
         ]);
 
-        $mensaje = Pqrs::findOrFail($id);  // ✅ findOrFail correcto
+        $mensaje = Pqrs::findOrFail($id);  //  findOrFail correcto
 
-        $mensaje->update([                  // ✅ -> en vez de ::
+        $mensaje->update([                  //  -> en vez de ::
             'nombres'   => $request->nombres,
             'apellidos' => $request->apellidos,
             'correos'   => $request->correos,

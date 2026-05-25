@@ -17,7 +17,7 @@
     /* Hero Section */
     .tg-hero {
         position: relative;
-        height: 450px; /* Un poco más alto para mayor impacto */
+        height: 450px; 
         overflow: hidden;
         border-radius: 16px;
         margin-bottom: 4rem;
