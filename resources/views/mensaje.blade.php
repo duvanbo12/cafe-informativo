@@ -8,7 +8,7 @@
 </h2>
 
 <div class="table-responsive">
-    <table id="tablaMensajes"class="table table-bordered table-striped" style="background: rgba(255,248,240,0.92);">
+    <table id="tablaMensajes" class="table table-bordered table-striped" style="background: rgba(255,248,240,0.92);">
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
@@ -30,7 +30,6 @@
                 <td>{{ $mensaje->correos }}</td>
                 <td>{{ $mensaje->tipo }}</td>
                 <td>{{ $mensaje->mensaje }}</td>
-                <td>{{ $mensaje->acepto ? 'Sí' : 'No' }}</td>
                 <td>
                     <a href="{{ route('mensajes.edit', $mensaje->id) }}"
                        class="btn btn-warning btn-sm">
@@ -49,10 +48,11 @@
                         </button>
                     </form>
                 </td>
+                <td>{{ $mensaje->acepto ? 'Sí' : 'No' }}</td>
             </tr>
             @empty
             <tr>
-                <td colspan="7" class="text-center text-muted">No hay mensajes registrados.</td>
+                <td colspan="8" class="text-center text-muted">No hay mensajes registrados.</td>
             </tr>
             @endforelse
         </tbody>

@@ -79,6 +79,53 @@
         font-size: 0.85rem; font-weight: 500;
         color: #7b3a17; letter-spacing: 1px;
     }
+    .tg-btn-agregar {
+        background: #7b3a17; color: #fff;
+        border: none; padding: 8px 15px;
+        border-radius: 5px; width: 100%;
+        cursor: pointer; margin-top: 10px;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.82rem; letter-spacing: 1px;
+        transition: background 0.2s;
+    }
+    .tg-btn-agregar:hover { background: #5a2810; }
+
+    .tg-pedido-card {
+        border: 2px solid #d4a855;
+        background: rgba(255, 248, 240, 0.97);
+        border-radius: 10px;
+        margin-bottom: 2rem;
+    }
+    .tg-pedido-card .card-body h5 {
+        font-family: 'Cormorant Garamond', serif;
+        color: #3b1a08; font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+    }
+    .tg-pedido-card ul li {
+        color: #5a2810; font-size: 0.88rem;
+        padding: 3px 0;
+    }
+    .tg-pedido-total {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.95rem; font-weight: 500;
+        color: #7b3a17; margin-top: 0.6rem;
+        border-top: 1px solid #e8d5bc;
+        padding-top: 0.5rem;
+    }
+    .tg-btn-comprar {
+        background: #d4a855; color: #3b1a08;
+        border: none; padding: 10px 20px;
+        border-radius: 5px; width: 100%;
+        cursor: pointer; margin-top: 8px;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.88rem; font-weight: 500;
+        letter-spacing: 1px;
+        transition: background 0.2s;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+    }
+    .tg-btn-comprar:hover { background: #b8903d; color: #fff; }
 
     .tg-quote {
         border-left: 2px solid #d4a855;
@@ -101,6 +148,37 @@
     }
 </style>
 
+{{-- Mensaje de éxito --}}
+@if(session('success'))
+<div class="alert alert-success text-center mb-3" style="background: #d4edda; border: 1px solid #c3e6cb; color: #155724; border-radius: 8px;">
+    {{ session('success') }}
+</div>
+@endif
+
+{{-- Resumen del Pedido --}}
+@if(isset($miPedido) && count($miPedido) > 0)
+<div class="tg-pedido-card">
+    <div class="card-body p-3">
+        <h5>🛍️ Tu Pedido Actual</h5>
+        <ul class="list-unstyled mb-2">
+            @foreach($miPedido as $item)
+                <li>{{ $item['nombre'] }} — <strong>${{ number_format($item['precio'], 0, ',', '.') }}</strong></li>
+            @endforeach
+        </ul>
+        <div class="tg-pedido-total">
+            Total: <strong>${{ number_format($totalPedido, 0, ',', '.') }}</strong>
+        </div>
+        <a href="{{ route('pedido.confirmar') }}" class="tg-btn-comprar mt-2">
+            ✅ Confirmar y Comprar
+        </a>
+        <form action="{{ route('pedido.limpiar') }}" method="POST" class="mt-2">
+            @csrf
+            <button type="submit" class="btn btn-outline-danger btn-sm w-100">Vaciar cuenta</button>
+        </form>
+    </div>
+</div>
+@endif
+
 {{-- Encabezado --}}
 <div class="tg-menu-header">
     <div class="tg-hero-tag">Pasto, Nariño — Colombia</div>
@@ -112,131 +190,55 @@
 {{-- Categoría: Bebidas --}}
 <div class="tg-category-label">☕ Bebidas</div>
 <div class="row g-3 mb-2">
+    @php
+        $bebidasIds = [1, 2, 3, 4, 5, 6];
+        $bebidas = $productos->whereIn('id', $bebidasIds);
+    @endphp
+    @foreach($bebidas as $producto)
     <div class="col-md-4 col-sm-6">
         <div class="tg-product-card">
-            <img src="https://www.esariri.com/wp-content/uploads/2022/11/Diseno-sin-titulo-20.jpg" alt="Tinto">
+            @if($producto->imagen)
+                <img src="{{ $producto->imagen }}" alt="{{ $producto->nombre }}">
+            @endif
             <div class="tg-product-body">
-                <h5>Tinto Nariñense</h5>
-                <p>Café negro tradicional, cultivado en las montañas de Nariño.</p>
-                <span class="tg-product-price">$ 2.000</span>
+                <h5>{{ $producto->nombre }}</h5>
+                <p>{{ $producto->descripcion }}</p>
+                <span class="tg-product-price">${{ number_format($producto->precio, 0, ',', '.') }}</span>
+                <form action="{{ route('pedido.agregar', $producto->id) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="tg-btn-agregar">Agregar al pedido</button>
+                </form>
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-sm-6">
-        <div class="tg-product-card">
-            <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&q=80" alt="Capuchino">
-            <div class="tg-product-body">
-                <h5>Capuchino</h5>
-                <p>Espresso con leche vaporizada y espuma cremosa.</p>
-                <span class="tg-product-price">$ 5.000</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 col-sm-6">
-        <div class="tg-product-card">
-            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80" alt="Latte">
-            <div class="tg-product-body">
-                <h5>Café Latte</h5>
-                <p>Espresso suave con leche caliente y toque de vainilla.</p>
-                <span class="tg-product-price">$ 5.500</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 col-sm-6">
-        <div class="tg-product-card">
-            <img src="https://kava1.lt/wp-content/uploads/2022/12/preparare-mocaccino-a-casa.jpg" alt="Mocaccino">
-            <div class="tg-product-body">
-                <h5>Mocaccino</h5>
-                <p>Combinación de espresso, chocolate y leche cremosa.</p>
-                <span class="tg-product-price">$ 6.000</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 col-sm-6">
-        <div class="tg-product-card">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfLoMwxpcEEstK3T79s66qxszFmljQV2NNXQ&s" alt="Café frío">
-            <div class="tg-product-body">
-                <h5>Café Frío</h5>
-                <p>Cold brew preparado en frío durante 12 horas.</p>
-                <span class="tg-product-price">$ 6.500</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 col-sm-6">
-        <div class="tg-product-card">
-            <img src="https://elrinconcolombiano.com/wp-content/uploads/2024/05/Chocolate-Caliente-receta-colombiana.jpg" alt="Chocolate">
-            <div class="tg-product-body">
-                <h5>Chocolate Caliente</h5>
-                <p>Chocolate artesanal con leche entera y canela.</p>
-                <span class="tg-product-price">$ 4.500</span>
-            </div>
-        </div>
-    </div>
+    @endforeach
 </div>
 
 {{-- Categoría: Comidas --}}
 <div class="tg-category-label">🥐 Comidas</div>
 <div class="row g-3 mb-2">
+    @php
+        $comidasIds = [7, 8, 9, 10, 11, 12];
+        $comidas = $productos->whereIn('id', $comidasIds);
+    @endphp
+    @foreach($comidas as $producto)
     <div class="col-md-4 col-sm-6">
         <div class="tg-product-card">
-            <img src="https://static.vecteezy.com/system/resources/thumbnails/056/932/616/small/a-close-up-of-freshly-baked-croissants-dusted-with-flour-emitting-steam-in-a-warm-setting-photo.jpg" alt="Croissant">
+            @if($producto->imagen)
+                <img src="{{ $producto->imagen }}" alt="{{ $producto->nombre }}">
+            @endif
             <div class="tg-product-body">
-                <h5>Croissant de Mantequilla</h5>
-                <p>Hojaldre artesanal horneado cada mañana.</p>
-                <span class="tg-product-price">$ 4.000</span>
+                <h5>{{ $producto->nombre }}</h5>
+                <p>{{ $producto->descripcion }}</p>
+                <span class="tg-product-price">${{ number_format($producto->precio, 0, ',', '.') }}</span>
+                <form action="{{ route('pedido.agregar', $producto->id) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="tg-btn-agregar">Agregar al pedido</button>
+                </form>
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-sm-6">
-        <div class="tg-product-card">
-            <img src="https://lasoleta.com/wp-content/uploads/2020/06/IMG_3916.jpg" alt="Pastel">
-            <div class="tg-product-body">
-                <h5>Pastel de Chocolate</h5>
-                <p>Bizcocho húmedo con cobertura de ganache oscuro.</p>
-                <span class="tg-product-price">$ 6.000</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 col-sm-6">
-        <div class="tg-product-card">
-            <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400&q=80" alt="Galletas">
-            <div class="tg-product-body">
-                <h5>Galletas de Avena</h5>
-                <p>Snack saludable con avena, miel y chips de chocolate.</p>
-                <span class="tg-product-price">$ 2.500</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 col-sm-6">
-        <div class="tg-product-card">
-            <img src="https://img.freepik.com/foto-gratis/vista-superior-tostadas-mermelada-rosa_23-2148381099.jpg" alt="Tostada">
-            <div class="tg-product-body">
-                <h5>Tostada con Mermelada</h5>
-                <p>Pan artesanal tostado con mermelada de mora nariñense.</p>
-                <span class="tg-product-price">$ 3.500</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 col-sm-6">
-        <div class="tg-product-card">
-            <img src="https://radionacional-v3.s3.amazonaws.com/s3fs-public/node/article/field_image/PAN%20DE%20MAIZ%20DE%20LA%20MART%C3%8DNEZ.jpg" alt="Muffin">
-            <div class="tg-product-body">
-                <h5>Pan de Maíz</h5>
-                <p>Pan de maíz nariñense, suave y con sabor casero.</p>
-                <span class="tg-product-price">$ 4.500</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 col-sm-6">
-        <div class="tg-product-card">
-            <img src="https://images.rappi.com/restaurants_background/empanaditasdepipian-1661364004384.jpg" alt="Empanada">
-            <div class="tg-product-body">
-                <h5>Empanada de Pipián</h5>
-                <p>Empanada nariñense tradicional, frita y crujiente.</p>
-                <span class="tg-product-price">$ 2.000</span>
-            </div>
-        </div>
-    </div>
+    @endforeach
 </div>
 
 {{-- Cita --}}
