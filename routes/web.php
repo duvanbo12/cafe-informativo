@@ -12,13 +12,13 @@ Route::get('/nosotros', [PaginaController::class, 'nosotros'])->name('nosotros')
 Route::get('/contacto', [PaginaController::class, 'contacto'])->name('contacto');
 Route::post('/pqrs', [PqrsController::class, 'store'])->name('pqrs.store');
 
-// Rutas del Pedido (Sin JavaScript)
+// Rutas del Pedido
 Route::post('/pedido/agregar/{id}', [PaginaController::class, 'agregarPedido'])->name('pedido.agregar');
 Route::post('/pedido/limpiar', [PaginaController::class, 'limpiarPedido'])->name('pedido.limpiar');
 Route::get('/pedido/confirmar', [PaginaController::class, 'confirmarPedido'])->name('pedido.confirmar');
 Route::post('/pedido/guardar', [PaginaController::class, 'guardarPedido'])->name('pedido.guardar');
 
-// Dashboard conectado al controlador existente
+// Dashboard conectado al controlador
 Route::get('/dashboard', [PaginaController::class, 'inicioDashboard'])->middleware('auth')->name('dashboard');
 
 // Rutas privadas
@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/mensajes/{id}', [PqrsController::class, 'update'])->name('mensajes.update');
     Route::delete('/mensajes/{id}', [PqrsController::class, 'destroy'])->name('mensajes.destroy');
 
-    // Perfil
+    // perfil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

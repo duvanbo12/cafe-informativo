@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Pqrs;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; 
 
 class PqrsController extends Controller
 {
@@ -52,9 +52,9 @@ class PqrsController extends Controller
             'mensaje'   => 'required|string',
         ]);
 
-        $mensaje = Pqrs::findOrFail($id);  //  findOrFail correcto
+        $mensaje = Pqrs::findOrFail($id);  //  findOrFail 
 
-        $mensaje->update([                  //  -> en vez de ::
+        $mensaje->update([                 
             'nombres'   => $request->nombres,
             'apellidos' => $request->apellidos,
             'correos'   => $request->correos,
