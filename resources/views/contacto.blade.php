@@ -5,118 +5,146 @@
 @section('content')
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+    /* Fondo general unificado con el resto de vistas (avena a café profundo) */
+    body {
+        background: linear-gradient(135deg, #f5ebd0 0%, #d4b595 40%, #5c3a21 85%, #2c150b 100%);
+        background-attachment: fixed;
+        font-family: 'DM Sans', sans-serif;
+        color: #2c150b;
+    }
 
     .contact-hero {
         text-align: center;
         margin-bottom: 3rem;
+        padding-top: 1rem;
     }
     .contact-hero .tag {
-        border: 1px solid #d4a855;
-        color: #d4a855;
-        font-size: 0.6rem;
-        letter-spacing: 4px;
+        border: 1px solid rgba(92, 58, 33, 0.4);
+        color: #5c3a21;
+        font-size: 0.65rem;
+        letter-spacing: 3px;
         text-transform: uppercase;
-        padding: 4px 16px;
+        padding: 4px 14px;
         border-radius: 20px;
         display: inline-block;
-        margin-bottom: 1rem;
+        margin-bottom: 0.8rem;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(8px);
+        font-weight: 600;
     }
     .contact-hero h1 {
         font-family: 'Cormorant Garamond', serif;
-        font-size: 3rem;
-        color: #fcf3ee;
+        font-size: 2.8rem;
+        color: #2c150b;
         font-style: italic;
+        margin-bottom: 0.2rem;
+        text-shadow: 0 2px 15px rgba(255, 255, 255, 0.4);
     }
     .contact-hero p {
-        color: #c9b49a;
-        font-size: 0.82rem;
-        letter-spacing: 3px;
+        color: #5c3a21;
+        font-size: 0.85rem;
+        letter-spacing: 2px;
         text-transform: uppercase;
-        font-weight: 300;
+        font-weight: 500;
     }
     .tg-line {
         width: 50px; height: 1px;
-        background: #d4a855;
+        background: #5c3a21;
         margin: 0.8rem auto 0;
+        opacity: 0.4;
     }
 
-    /* Info cards */
+    /* Info cards con efecto cristal claro */
     .info-card {
-        background: rgba(255, 248, 240, 0.06);
-        border: 1px solid rgba(212, 168, 85, 0.3);
+        background: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
         border-radius: 14px;
         padding: 1.8rem 1.2rem;
         text-align: center;
         height: 100%;
         transition: all 0.3s ease;
-        backdrop-filter: blur(8px);
+        box-shadow: 0 8px 32px 0 rgba(44, 21, 11, 0.12);
     }
     .info-card:hover {
-        background: rgba(212, 168, 85, 0.1);
-        border-color: #d4a855;
-        transform: translateY(-5px);
-        box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+        background: rgba(255, 255, 255, 0.65);
+        border-color: #5c3a21;
+        transform: translateY(-4px);
+        box-shadow: 0 12px 35px rgba(44, 21, 11, 0.18);
     }
     .info-card .icon-wrap {
         width: 52px; height: 52px;
-        background: rgba(212, 168, 85, 0.15);
+        background: rgba(92, 58, 33, 0.08);
         border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
         margin: 0 auto 1rem;
-        border: 1px solid rgba(212, 168, 85, 0.4);
+        border: 1px solid rgba(92, 58, 33, 0.2);
     }
     .info-card i {
         font-size: 1.3rem;
-        color: #d4a855;
+        color: #5c3a21;
     }
     .info-card h5 {
         font-family: 'Cormorant Garamond', serif;
-        color: #fcf3ee;
-        font-size: 1rem;
+        color: #2c150b;
+        font-size: 1.2rem;
         margin-bottom: 0.3rem;
         font-weight: 600;
     }
     .info-card p, .info-card a {
-        color: #c9b49a;
-        font-size: 0.82rem;
-        font-weight: 300;
+        color: #4a2c1d;
+        font-size: 0.85rem;
+        font-weight: 400;
         margin: 0;
         text-decoration: none;
         line-height: 1.6;
     }
-    .info-card a:hover { color: #d4a855; }
+    .info-card a:hover { color: #5c3a21; font-weight: 500; }
 
     /* Mapa */
     .map-wrapper {
         border-radius: 16px;
         overflow: hidden;
-        border: 1px solid rgba(212, 168, 85, 0.3);
-        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 8px 32px 0 rgba(44, 21, 11, 0.12);
+        background: rgba(255, 255, 255, 0.4);
+        padding: 6px;
+        backdrop-filter: blur(16px);
+    }
+    .map-wrapper iframe {
+        border-radius: 12px;
     }
 
-    /* Sección redes */
+    /* Sección redes estilo cristal claro */
     .redes-section {
-        background: rgba(255, 248, 240, 0.04);
-        border: 1px solid rgba(212, 168, 85, 0.2);
+        background: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
         border-radius: 16px;
         padding: 2.5rem;
         text-align: center;
         margin-top: 3rem;
+        box-shadow: 0 8px 32px 0 rgba(44, 21, 11, 0.12);
     }
     .redes-title {
         font-family: 'Cormorant Garamond', serif;
-        font-size: 1.6rem;
-        color: #fcf3ee;
+        font-size: 1.8rem;
+        color: #2c150b;
         font-style: italic;
-        margin-bottom: 0.3rem;
+        margin-bottom: 0.2rem;
+        font-weight: 600;
     }
     .redes-subtitle {
-        color: #c9b49a;
-        font-size: 0.75rem;
+        color: #5c3a21;
+        font-size: 0.78rem;
         letter-spacing: 2px;
         text-transform: uppercase;
         margin-bottom: 1.8rem;
+        font-weight: 500;
     }
 
     .social-btn {
@@ -127,50 +155,60 @@
         border-radius: 50px;
         font-size: 0.82rem;
         font-family: 'DM Sans', sans-serif;
-        font-weight: 400;
+        font-weight: 500;
         text-decoration: none;
         transition: all 0.25s ease;
         margin: 0.3rem;
-        border: 1px solid transparent;
+        border: 1px solid rgba(255, 255, 255, 0.5);
     }
     .social-btn i { font-size: 1rem; }
 
-    .social-btn.facebook  { background: rgba(24,  119, 242, 0.15); color: #74a7f5; border-color: rgba(24,119,242,0.3); }
-    .social-btn.instagram { background: rgba(225, 48,  108, 0.15); color: #f585a5; border-color: rgba(225,48,108,0.3); }
-    .social-btn.whatsapp  { background: rgba(37,  211, 102, 0.15); color: #6dd99a; border-color: rgba(37,211,102,0.3); }
-    .social-btn.tiktok    { background: rgba(255, 255, 255, 0.08); color: #e8e8e8; border-color: rgba(255,255,255,0.2); }
-    .social-btn.youtube   { background: rgba(255, 0,   0,   0.15); color: #f47f7f; border-color: rgba(255,0,0,0.3); }
+    /* Botones sociales adaptados a la paleta cálida */
+    .social-btn.facebook  { background: rgba(24, 119, 242, 0.12); color: #1855b4; border-color: rgba(24,119,242,0.25); }
+    .social-btn.instagram { background: rgba(225, 48, 108, 0.12); color: #b8285c; border-color: rgba(225,48,108,0.25); }
+    .social-btn.whatsapp  { background: rgba(37, 211, 102, 0.12); color: #1a7a3e; border-color: rgba(37,211,102,0.25); }
+    .social-btn.tiktok    { background: rgba(0, 0, 0, 0.08); color: #2c150b; border-color: rgba(0,0,0,0.15); }
+    .social-btn.youtube   { background: rgba(255, 0, 0, 0.12); color: #b31414; border-color: rgba(255,0,0,0.25); }
 
     .social-btn:hover {
         transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-        filter: brightness(1.15);
+        box-shadow: 0 6px 20px rgba(44, 21, 11, 0.15);
+        background: rgba(255, 255, 255, 0.8);
+        filter: none;
     }
 
-    /* Cita */
+    /* Cita estilo cristal */
     .tg-quote {
-        border-left: 2px solid #d4a855;
-        padding: 1.2rem 1.8rem;
-        background: rgba(212, 168, 85, 0.06);
-        border-radius: 0 12px 12px 0;
-        backdrop-filter: blur(4px);
+        border-left: 4px solid #5c3a21;
+        padding: 1.5rem 1.8rem;
+        background: rgba(255, 255, 255, 0.35);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 0 14px 14px 0;
         margin-top: 3rem;
+        box-shadow: 0 8px 32px 0 rgba(44, 21, 11, 0.1);
+        border-top: 1px solid rgba(255, 255, 255, 0.6);
+        border-right: 1px solid rgba(255, 255, 255, 0.6);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.6);
     }
     .tg-quote p {
         font-family: 'Cormorant Garamond', serif;
         font-style: italic;
-        font-size: 1.15rem;
-        color: #e8c98a;
-        line-height: 1.7;
+        font-size: 1.3rem;
+        color: #2c150b;
+        line-height: 1.5;
         margin: 0;
+        font-weight: 500;
     }
     .tg-quote span {
         display: block;
         margin-top: 0.5rem;
-        font-size: 0.72rem;
-        color: #a07050;
+        font-size: 0.75rem;
+        color: #5c3a21;
         letter-spacing: 2px;
         font-family: 'DM Sans', sans-serif;
+        font-weight: 600;
+        text-transform: uppercase;
     }
 
     /* Separador decorativo */
@@ -185,23 +223,24 @@
         content: '';
         flex: 1;
         height: 1px;
-        background: linear-gradient(to right, transparent, rgba(212,168,85,0.4), transparent);
+        background: linear-gradient(to right, transparent, rgba(92, 58, 33, 0.3), transparent);
     }
     .deco-divider span {
-        color: #d4a855;
+        color: #5c3a21;
         font-size: 1rem;
     }
 
     /* Badge horario */
     .horario-badge {
         display: inline-block;
-        background: rgba(212, 168, 85, 0.12);
-        border: 1px solid rgba(212, 168, 85, 0.3);
+        background: rgba(40, 167, 69, 0.15);
+        border: 1px solid rgba(40, 167, 69, 0.3);
         border-radius: 20px;
         padding: 2px 10px;
         font-size: 0.7rem;
-        color: #d4a855;
+        color: #155724;
         margin-top: 0.3rem;
+        font-weight: 600;
     }
 </style>
 
@@ -214,7 +253,7 @@
 </div>
 
 {{-- Tarjetas de información --}}
-<div class="row g-3 mb-5">
+<div class="row g-3 mb-5 justify-content-center">
     <div class="col-md-3 col-sm-6">
         <div class="info-card">
             <div class="icon-wrap">
@@ -230,7 +269,7 @@
                 <i class="bi bi-telephone-fill"></i>
             </div>
             <h5>Teléfono</h5>
-            <a href="tel:+573000000000">+57 300 000 0000</a>
+            <p><a href="tel:+573000000000">+57 300 000 0000</a></p>
         </div>
     </div>
     <div class="col-md-3 col-sm-6">
@@ -239,7 +278,7 @@
                 <i class="bi bi-envelope-fill"></i>
             </div>
             <h5>Correo</h5>
-            <a href="mailto:info@tintonarino.com">info@tintonarino.com</a>
+            <p><a href="mailto:info@tintonarino.com">info@tintonarino.com</a></p>
         </div>
     </div>
     <div class="col-md-3 col-sm-6">

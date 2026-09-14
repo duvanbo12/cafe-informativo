@@ -1,181 +1,158 @@
 @extends('layouts.app')
 
-@section('title', 'Menú - Tinto Nariño')
+@section('title', 'Menú - Tinto Galeras')
 
 @section('content')
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;700&display=swap');
+
+    /* Fondo tipo avena/crema suave difuminando a un café profundo (igual al de la vista Nosotros) */
+    body {
+        background: linear-gradient(135deg, #f5ebd0 0%, #d4b595 40%, #5c3a21 85%, #2c150b 100%);
+        background-attachment: fixed;
+        font-family: 'DM Sans', sans-serif;
+        color: #2c150b;
+    }
 
     .tg-menu-header {
         text-align: center;
-        margin-bottom: 2.5rem;
+        margin-bottom: 2rem;
+        padding-top: 1rem;
     }
-    .tg-menu-header .tg-hero-tag {
-        border: 1px solid #d4a855; color: #d4a855;
-        font-size: 0.6rem; letter-spacing: 4px;
-        text-transform: uppercase; padding: 3px 14px;
-        border-radius: 20px; margin-bottom: 1rem;
+    .tg-hero-tag {
+        border: 1px solid rgba(92, 58, 33, 0.4); 
+        color: #5c3a21;
+        font-size: 0.65rem; letter-spacing: 3px;
+        text-transform: uppercase; padding: 4px 14px;
+        border-radius: 20px; margin-bottom: 0.8rem;
         display: inline-block;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(8px);
+        font-weight: 600;
     }
     .tg-menu-header h1 {
         font-family: 'Cormorant Garamond', serif;
-        font-size: 2.6rem; color: #fbfbfb;
-        font-style: italic; margin-bottom: 0.3rem;
+        font-size: 2.8rem; color: #2c150b;
+        font-style: italic; margin-bottom: 0.2rem;
+        text-shadow: 0 2px 15px rgba(255, 255, 255, 0.4);
     }
     .tg-menu-header p {
-        color: #ffffff; font-size: 0.82rem;
-        letter-spacing: 3px; text-transform: uppercase;
-        font-weight: 300;
-    }
-    .tg-line {
-        width: 50px; height: 1px;
-        background: #d4a855; margin: 0.8rem auto 0;
+        color: #5c3a21; font-size: 0.85rem;
+        letter-spacing: 2px; text-transform: uppercase;
+        font-weight: 500;
     }
 
-    .tg-category-label {
+    .tg-category-title {
         font-family: 'Cormorant Garamond', serif;
-        font-size: 1.5rem; color: #ffe5d6;
+        font-size: 1.8rem; color: #2c150b;
         font-style: italic;
-        border-bottom: 1px solid #d4a855;
-        padding-bottom: 0.4rem;
-        margin-bottom: 1.5rem;
-        margin-top: 2.5rem;
+        margin-bottom: 1.2rem;
+        margin-top: 1.8rem;
+        border-bottom: 1px solid rgba(92, 58, 33, 0.2);
+        padding-bottom: 0.3rem;
     }
 
-    .tg-product-card {
-        background: rgba(255, 248, 240, 0.88);
-        border: 1px solid #e8d5bc;
-        border-radius: 10px;
+    /* EFECTO VIDRIADO CLARO PARA LAS TARJETAS DEL MENÚ */
+    .tg-horizontal-card {
+        background: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: 14px;
         overflow: hidden;
-        height: 100%;
-        transition: transform 0.2s, box-shadow 0.2s;
-        backdrop-filter: blur(4px);
+        display: flex;
+        align-items: center;
+        padding: 12px;
+        margin-bottom: 1rem;
+        box-shadow: 0 8px 32px 0 rgba(44, 21, 11, 0.12);
+        transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
     }
-    .tg-product-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 24px rgba(59, 26, 8, 0.15);
+    .tg-horizontal-card:hover {
+        transform: translateY(-3px);
+        background: rgba(255, 255, 255, 0.65);
+        border-color: #5c3a21;
     }
-    .tg-product-card img {
-        width: 100%; height: 160px;
-        object-fit: cover;
-        filter: brightness(0.88) saturate(1.1);
-    }
-    .tg-product-body {
-        padding: 1rem 1.1rem;
-    }
-    .tg-product-body h5 {
-        font-family: 'Cormorant Garamond', serif;
-        color: #3b1a08; font-size: 1.05rem;
-        margin-bottom: 0.25rem; font-weight: 600;
-    }
-    .tg-product-body p {
-        color: #9a7055; font-size: 0.78rem;
-        font-weight: 300; margin-bottom: 0.6rem;
-        line-height: 1.5;
-    }
-    .tg-product-price {
-        font-family: 'DM Sans', sans-serif;
-        font-size: 0.85rem; font-weight: 500;
-        color: #7b3a17; letter-spacing: 1px;
-    }
-    .tg-btn-agregar {
-        background: #7b3a17; color: #fff;
-        border: none; padding: 8px 15px;
-        border-radius: 5px; width: 100%;
-        cursor: pointer; margin-top: 10px;
-        font-family: 'DM Sans', sans-serif;
-        font-size: 0.82rem; letter-spacing: 1px;
-        transition: background 0.2s;
-    }
-    .tg-btn-agregar:hover { background: #5a2810; }
-
-    .tg-pedido-card {
-        border: 2px solid #d4a855;
-        background: rgba(255, 248, 240, 0.97);
+    .tg-horizontal-img {
+        width: 85px;
+        height: 85px;
         border-radius: 10px;
-        margin-bottom: 2rem;
+        object-fit: cover;
+        flex-shrink: 0;
+        border: 1px solid rgba(255, 255, 255, 0.6);
     }
-    .tg-pedido-card .card-body h5 {
+    .tg-horizontal-body {
+        padding-left: 1rem;
+        flex-grow: 1;
+    }
+    .tg-horizontal-body h5 {
         font-family: 'Cormorant Garamond', serif;
-        color: #3b1a08; font-size: 1.2rem;
-        margin-bottom: 0.8rem;
+        color: #2c150b;
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.15rem;
     }
-    .tg-pedido-card ul li {
-        color: #5a2810; font-size: 0.88rem;
-        padding: 3px 0;
+    .tg-horizontal-body p {
+        color: #4a2c1d;
+        font-size: 0.78rem;
+        margin-bottom: 0.4rem;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-weight: 400;
     }
-    .tg-pedido-total {
-        font-family: 'DM Sans', sans-serif;
-        font-size: 0.95rem; font-weight: 500;
-        color: #7b3a17; margin-top: 0.6rem;
-        border-top: 1px solid #e8d5bc;
-        padding-top: 0.5rem;
+    .tg-price-box {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
     }
-    .tg-btn-comprar {
-        background: #d4a855; color: #3b1a08;
-        border: none; padding: 10px 20px;
-        border-radius: 5px; width: 100%;
-        cursor: pointer; margin-top: 8px;
-        font-family: 'DM Sans', sans-serif;
-        font-size: 0.88rem; font-weight: 500;
-        letter-spacing: 1px;
-        transition: background 0.2s;
-        text-decoration: none;
-        display: block;
-        text-align: center;
+    .tg-current-price {
+        font-weight: 700;
+        color: #5c3a21;
+        font-size: 0.95rem;
     }
-    .tg-btn-comprar:hover { background: #b8903d; color: #fff; }
+    
+    /* Botón de "+" estilo cristal claro / café */
+    .tg-btn-plus {
+        background: #5c3a21;
+        color: #f5ebd0;
+        border: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s;
+        flex-shrink: 0;
+        margin-left: 10px;
+    }
+    .tg-btn-plus:hover {
+        background: #3b200e;
+        color: #fff;
+    }
 
-    .tg-quote {
-        border-left: 2px solid #d4a855;
-        padding: 1rem 1.5rem;
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 0 8px 8px 0;
-        backdrop-filter: blur(4px);
-        margin-top: 3rem; margin-bottom: 1rem;
-    }
-    .tg-quote p {
-        font-family: 'Cormorant Garamond', serif;
-        font-style: italic; font-size: 1.1rem;
-        color: #3b1a08; line-height: 1.7; margin: 0;
-    }
-    .tg-quote span {
-        display: block; margin-top: 0.4rem;
-        font-size: 0.72rem; color: #9a7055;
-        letter-spacing: 2px; font-weight: 300;
-        font-family: 'DM Sans', sans-serif;
+    /* Tarjeta de resumen de pedido flotante estilo cristal claro */
+    .tg-pedido-card {
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(16px);
+        border-radius: 14px;
+        margin-bottom: 2rem;
+        color: #2c150b;
+        box-shadow: 0 8px 32px 0 rgba(44, 21, 11, 0.15);
     }
 </style>
 
 {{-- Mensaje de éxito --}}
 @if(session('success'))
-<div class="alert alert-success text-center mb-3" style="background: #d4edda; border: 1px solid #c3e6cb; color: #155724; border-radius: 8px;">
+<div class="alert text-center mb-3 py-2" style="background: rgba(40, 167, 69, 0.2); backdrop-filter: blur(10px); border: 1px solid rgba(40, 167, 69, 0.4); color: #155724; border-radius: 10px; font-size: 0.88rem;">
     {{ session('success') }}
-</div>
-@endif
-
-{{-- Resumen del Pedido --}}
-@if(isset($miPedido) && count($miPedido) > 0)
-<div class="tg-pedido-card">
-    <div class="card-body p-3">
-        <h5>🛍️ Tu Pedido Actual</h5>
-        <ul class="list-unstyled mb-2">
-            @foreach($miPedido as $item)
-                <li>{{ $item['nombre'] }} — <strong>${{ number_format($item['precio'], 0, ',', '.') }}</strong></li>
-            @endforeach
-        </ul>
-        <div class="tg-pedido-total">
-            Total: <strong>${{ number_format($totalPedido, 0, ',', '.') }}</strong>
-        </div>
-        <a href="{{ route('pedido.confirmar') }}" class="tg-btn-comprar mt-2">
-            ✅ Confirmar y Comprar
-        </a>
-        <form action="{{ route('pedido.limpiar') }}" method="POST" class="mt-2">
-            @csrf
-            <button type="submit" class="btn btn-outline-danger btn-sm w-100">Vaciar cuenta</button>
-        </form>
-    </div>
 </div>
 @endif
 
@@ -183,68 +160,100 @@
 <div class="tg-menu-header">
     <div class="tg-hero-tag">Pasto, Nariño — Colombia</div>
     <h1>Nuestro Menú</h1>
-    <p>Sabor auténtico en cada producto</p>
-    <div class="tg-line"></div>
+    <p>Escoge tus favoritos y arma tu pedido</p>
 </div>
 
-{{-- Categoría: Bebidas --}}
-<div class="tg-category-label">☕ Bebidas</div>
-<div class="row g-3 mb-2">
-    @php
-        $bebidasIds = [1, 2, 3, 4, 5, 6];
-        $bebidas = $productos->whereIn('id', $bebidasIds);
-    @endphp
-    @foreach($bebidas as $producto)
-    <div class="col-md-4 col-sm-6">
-        <div class="tg-product-card">
-            @if($producto->imagen)
-                <img src="{{ $producto->imagen }}" alt="{{ $producto->nombre }}">
-            @endif
-            <div class="tg-product-body">
-                <h5>{{ $producto->nombre }}</h5>
-                <p>{{ $producto->descripcion }}</p>
-                <span class="tg-product-price">${{ number_format($producto->precio, 0, ',', '.') }}</span>
-                <form action="{{ route('pedido.agregar', $producto->id) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="tg-btn-agregar">Agregar al pedido</button>
-                </form>
+{{-- Resumen del Pedido Actual --}}
+@if(isset($miPedido) && count($miPedido) > 0)
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="tg-pedido-card p-3">
+            <h5 style="font-family: 'Cormorant Garamond', serif; color: #2c150b; font-size: 1.2rem; font-weight: bold;">🛍️ Tu Pedido Actual</h5>
+            <ul class="list-unstyled mb-2" style="font-size: 0.88rem;">
+                @foreach($miPedido as $item)
+                    <li class="d-flex justify-content-between py-1 border-bottom" style="border-color: rgba(92, 58, 33, 0.15) !important;">
+                        <span style="color: #4a2c1d;">{{ $item['nombre'] }}</span>
+                        <strong style="color: #5c3a21;">${{ number_format($item['precio'], 0, ',', '.') }}</strong>
+                    </li>
+                @endforeach
+            </ul>
+            <div class="d-flex justify-content-between align-items-center mt-2 pt-2 border-top" style="border-color: rgba(92, 58, 33, 0.15) !important;">
+                <span class="fw-bold" style="color: #2c150b;">Total: ${{ number_format($totalPedido, 0, ',', '.') }}</span>
+                <div>
+                    <a href="{{ route('pedido.confirmar') }}" class="btn btn-sm px-3" style="background: #5c3a21; color: #f5ebd0; font-weight: 600; border-radius: 8px;">Confirmar</a>
+                    <form action="{{ route('pedido.limpiar') }}" method="POST" class="d-inline">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-outline-danger ms-1" style="border-radius: 8px;">Vaciar</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-    @endforeach
 </div>
+@endif
 
-{{-- Categoría: Comidas --}}
-<div class="tg-category-label">🥐 Comidas</div>
-<div class="row g-3 mb-2">
-    @php
-        $comidasIds = [7, 8, 9, 10, 11, 12];
-        $comidas = $productos->whereIn('id', $comidasIds);
-    @endphp
-    @foreach($comidas as $producto)
-    <div class="col-md-4 col-sm-6">
-        <div class="tg-product-card">
-            @if($producto->imagen)
-                <img src="{{ $producto->imagen }}" alt="{{ $producto->nombre }}">
-            @endif
-            <div class="tg-product-body">
-                <h5>{{ $producto->nombre }}</h5>
-                <p>{{ $producto->descripcion }}</p>
-                <span class="tg-product-price">${{ number_format($producto->precio, 0, ',', '.') }}</span>
-                <form action="{{ route('pedido.agregar', $producto->id) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="tg-btn-agregar">Agregar al pedido</button>
-                </form>
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+
+        {{-- Categoría: Bebidas --}}
+        <div class="tg-category-title">☕ Bebidas</div>
+        <div class="row">
+            @php
+                $bebidasIds = [1, 2, 3, 4, 5, 6];
+                $bebidas = $productos->whereIn('id', $bebidasIds);
+            @endphp
+            @foreach($bebidas as $producto)
+            <div class="col-md-6">
+                <div class="tg-horizontal-card">
+                    @if($producto->imagen)
+                        <img src="{{ $producto->imagen }}" class="tg-horizontal-img" alt="{{ $producto->nombre }}">
+                    @endif
+                    <div class="tg-horizontal-body">
+                        <h5>{{ $producto->nombre }}</h5>
+                        <p>{{ $producto->descripcion }}</p>
+                        <div class="tg-price-box">
+                            <span class="tg-current-price">${{ number_format($producto->precio, 0, ',', '.') }}</span>
+                        </div>
+                    </div>
+                    <form action="{{ route('pedido.agregar', $producto->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="tg-btn-plus" title="Agregar">+</button>
+                    </form>
+                </div>
             </div>
+            @endforeach
         </div>
-    </div>
-    @endforeach
-</div>
 
-{{-- Cita --}}
-<div class="tg-quote">
-    <p>"Cada producto está pensado para acompañar el mejor momento del día — tu taza de café."</p>
-    <span>— Tinto Nariño, Pasto</span>
+        {{-- Categoría: Comidas --}}
+        <div class="tg-category-title">🥐 Comidas</div>
+        <div class="row">
+            @php
+                $comidasIds = [7, 8, 9, 10, 11, 12];
+                $comidas = $productos->whereIn('id', $comidasIds);
+            @endphp
+            @foreach($comidas as $producto)
+            <div class="col-md-6">
+                <div class="tg-horizontal-card">
+                    @if($producto->imagen)
+                        <img src="{{ $producto->imagen }}" class="tg-horizontal-img" alt="{{ $producto->nombre }}">
+                    @endif
+                    <div class="tg-horizontal-body">
+                        <h5>{{ $producto->nombre }}</h5>
+                        <p>{{ $producto->descripcion }}</p>
+                        <div class="tg-price-box">
+                            <span class="tg-current-price">${{ number_format($producto->precio, 0, ',', '.') }}</span>
+                        </div>
+                    </div>
+                    <form action="{{ route('pedido.agregar', $producto->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="tg-btn-plus" title="Agregar">+</button>
+                    </form>
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+    </div>
 </div>
 
 @endsection

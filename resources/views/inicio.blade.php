@@ -5,13 +5,21 @@
 @section('content')
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@300;400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@300;400;500;600&display=swap');
 
     :root {
-        --cafe-dark: #2c1810;
-        --cafe-gold: #d4a855;
-        --cafe-light: #fdf8f5;
-        --cafe-accent: #c4956a;
+        --cafe-dark: #2c150b;
+        --cafe-gold: #8c5830;
+        --cafe-light: #f5ebd0;
+        --cafe-accent: #5c3a21;
+    }
+
+    /* Fondo general unificado con las demás vistas (avena a café profundo) */
+    body {
+        background: linear-gradient(135deg, #f5ebd0 0%, #d4b595 40%, #5c3a21 85%, #2c150b 100%);
+        background-attachment: fixed;
+        font-family: 'DM Sans', sans-serif;
+        color: #2c150b;
     }
 
     /* Hero Section */
@@ -21,12 +29,13 @@
         overflow: hidden;
         border-radius: 16px;
         margin-bottom: 4rem;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        box-shadow: 0 15px 35px rgba(44, 21, 11, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.5);
     }
     .tg-hero img {
         width: 100%; height: 100%;
         object-fit: cover;
-        filter: brightness(0.4) saturate(0.9);
+        filter: brightness(0.45) saturate(1.1);
         transition: transform 10s ease;
     }
     .tg-hero:hover img { transform: scale(1.05); }
@@ -38,78 +47,90 @@
         text-align: center; padding: 2rem;
     }
     .tg-hero-tag {
-        border: 1px solid var(--cafe-gold); 
-        color: var(--cafe-gold);
-        font-size: 0.7rem; letter-spacing: 5px;
+        border: 1px solid rgba(255, 255, 255, 0.4); 
+        color: #f5ebd0;
+        font-size: 0.75rem; letter-spacing: 5px;
         text-transform: uppercase; padding: 6px 20px;
         border-radius: 30px; margin-bottom: 1.5rem;
-        backdrop-filter: blur(4px);
+        background: rgba(44, 21, 11, 0.5);
+        backdrop-filter: blur(8px);
+        font-weight: 600;
     }
     .tg-hero-overlay h1 {
         font-family: 'Cormorant Garamond', serif;
         font-size: clamp(2.5rem, 6vw, 4.5rem); 
         color: #ffffff;
-        font-weight: 500; line-height: 1; margin-bottom: 1rem;
+        font-weight: 600; font-style: italic; line-height: 1; margin-bottom: 1rem;
+        text-shadow: 0 2px 15px rgba(0,0,0,0.4);
     }
     .tg-hero-overlay p {
-        color: var(--cafe-accent); 
-        font-size: 0.85rem;
+        color: #f5ebd0; 
+        font-size: 0.9rem;
         letter-spacing: 5px; text-transform: uppercase;
-        font-weight: 400; margin: 0;
+        font-weight: 500; margin: 0;
     }
 
     /* Welcome Section */
     .tg-section-label {
         font-size: 0.75rem; letter-spacing: 3px;
-        text-transform: uppercase; color: var(--cafe-gold);
-        margin-bottom: 0.8rem; font-weight: 600;
+        text-transform: uppercase; color: #5c3a21;
+        margin-bottom: 0.8rem; font-weight: 700;
     }
     .tg-welcome-title {
         font-family: 'Cormorant Garamond', serif;
-        font-size: 2.8rem; color: var(--cafe-dark);
+        font-size: 2.8rem; color: #2c150b;
+        font-style: italic;
         line-height: 1.1; margin-bottom: 1.5rem;
+        font-weight: 600;
     }
     .tg-welcome-body {
-        color: #5a4a42; font-size: 1.05rem;
-        line-height: 1.8; font-weight: 300;
+        color: #4a2c1d; font-size: 1.05rem;
+        line-height: 1.8; font-weight: 400;
     }
 
     .tg-btn-cafe {
         display: inline-block;
-        background: var(--cafe-dark);
-        color: #fff;
+        background: #5c3a21;
+        color: #f5ebd0;
         padding: 0.8rem 2.2rem;
         border-radius: 50px;
         font-size: 0.85rem; letter-spacing: 2px;
         text-transform: uppercase; margin-top: 1.5rem;
         text-decoration: none; transition: all 0.3s ease;
         font-family: 'DM Sans', sans-serif;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(92, 58, 33, 0.2);
     }
     .tg-btn-cafe:hover {
-        background: var(--cafe-gold);
+        background: #3b200e;
         transform: translateY(-2px);
         color: #fff;
-        box-shadow: 0 10px 20px rgba(212, 168, 85, 0.3);
+        box-shadow: 0 8px 20px rgba(92, 58, 33, 0.3);
     }
 
     .tg-img-side {
         width: 100%; height: 400px;
-        object-fit: cover; border-radius: 20px;
-        box-shadow: 20px 20px 0px var(--cafe-light);
+        object-fit: cover; border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 10px 30px rgba(44, 21, 11, 0.15);
     }
 
-    /* Cards */
+    /* Cards con efecto cristal claro */
     .tg-card {
-        background: #ffffff;
-        border: 1px solid #eee7e0;
+        background: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
         border-radius: 16px; padding: 2rem;
         text-align: center; height: 100%;
         transition: all 0.3s ease;
+        box-shadow: 0 8px 32px 0 rgba(44, 21, 11, 0.1);
     }
     .tg-card:hover {
-        transform: translateY(-8px);
-        border-color: var(--cafe-gold);
-        box-shadow: 0 15px 35px rgba(44, 24, 16, 0.08);
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.6);
+        border-color: #5c3a21;
+        box-shadow: 0 12px 35px rgba(44, 21, 11, 0.15);
     }
     .tg-card .icon-box {
         font-size: 2rem; margin-bottom: 1rem;
@@ -117,34 +138,41 @@
     }
     .tg-card h5 {
         font-family: 'Cormorant Garamond', serif;
-        color: var(--cafe-dark); font-size: 1.4rem; font-weight: 600;
+        color: #2c150b; font-size: 1.4rem; font-weight: 600;
+        font-style: italic;
     }
-    .tg-card p { color: #8e7d74; font-size: 0.9rem; margin: 0; }
+    .tg-card p { color: #5c3a21; font-size: 0.95rem; margin: 0; font-weight: 400; }
 
-    /* Quote */
+    /* Quote con estilo cristal */
     .tg-quote {
         margin: 4rem 0;
         padding: 3rem;
-        background: var(--cafe-light);
-        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.35);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 16px;
         text-align: center;
-        border-left: 4px solid var(--cafe-gold);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-left: 4px solid #5c3a21;
+        box-shadow: 0 8px 32px 0 rgba(44, 21, 11, 0.1);
     }
     .tg-quote p {
         font-family: 'Cormorant Garamond', serif;
         font-style: italic; font-size: 1.6rem;
-        color: var(--cafe-dark); line-height: 1.4; margin: 0;
+        color: #2c150b; line-height: 1.4; margin: 0;
+        font-weight: 500;
     }
     .tg-quote span {
         display: block; margin-top: 1rem;
-        font-size: 0.8rem; color: var(--cafe-gold);
+        font-size: 0.8rem; color: #5c3a21;
         letter-spacing: 3px; text-transform: uppercase;
+        font-weight: 600;
     }
 
     @media (max-width: 768px) {
         .tg-hero { height: 350px; }
         .tg-welcome-title { font-size: 2rem; }
-        .tg-img-side { height: 300px; box-shadow: 10px 10px 0px var(--cafe-light); }
+        .tg-img-side { height: 300px; }
     }
 </style>
 
@@ -166,7 +194,7 @@
         <p class="tg-welcome-body">
             Bienvenido a <strong>Tinto Nariño</strong>, un refugio donde el aroma de las montañas se encuentra con la calidez de nuestra gente. Preparamos cada tinto con la dedicación que solo nuestra tierra puede inspirar.
         </p>
-        <p class="tg-welcome-body">
+        <p class="tg-welcome-body mt-3">
             Relájate, comparte buenos momentos y déjate conquistar por el auténtico sabor del sur colombiano. ☕
         </p>
         <a href="{{ route('menu') }}" class="tg-btn-cafe">Explorar Menú</a>
