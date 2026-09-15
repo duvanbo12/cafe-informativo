@@ -234,7 +234,7 @@
     <hr class="tg-footer-divider">
     <div class="tg-footer-bottom">
         © 2026 Tinto Nariño. Todos los derechos reservados. —
-        Desarrollado por: <strong>Duvan Botina</strong> & <strong>Miguel Legarda</strong>
+        Desarrollado por: <strong>Duvan Botina, </strong><strong>Miguel Legarda, </strong><strong>Luis Dorado</strong> & <strong>Karen Ortega</strong>
     </div>
 </footer>
  <script> 
