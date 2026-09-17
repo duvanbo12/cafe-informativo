@@ -22,7 +22,7 @@
             </tr>
         </thead>
         <tbody>
-            @forelse($mensajes as $mensaje)
+            @foreach($mensajes as $mensaje)
             <tr>
                 <td>{{ $mensaje->id }}</td>
                 <td>{{ $mensaje->nombres }}</td>
@@ -50,11 +50,7 @@
                 </td>
                 <td>{{ $mensaje->acepto ? 'Sí' : 'No' }}</td>
             </tr>
-            @empty
-            <tr>
-                <td colspan="8" class="text-center text-muted">No hay mensajes registrados.</td>
-            </tr>
-            @endforelse
+            @endforeach
         </tbody>
     </table>
 </div>
