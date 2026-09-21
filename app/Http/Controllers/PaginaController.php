@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\pqrs;
-use App\Models\producto;
+use App\Models\Producto;
 use App\Models\Pedido;
 
 class PaginaController extends Controller
@@ -30,7 +30,7 @@ class PaginaController extends Controller
 
     public function menu()
     {
-        $productos = \App\Models\Producto::all();
+        $productos = Producto::all();
 
         $miPedido = session()->get('pedido', []);
 
@@ -43,7 +43,7 @@ class PaginaController extends Controller
 
     public function agregarPedido($id)
     {
-        $producto = producto::find($id);
+        $producto = Producto::find($id);
 
         if ($producto) {
             session()->push('pedido', [
@@ -111,11 +111,11 @@ class PaginaController extends Controller
     // ─── Dashboard ────────────────────────────────────────────────────────────
 
     public function inicioDashboard()
-{
-    $totalMensajes       = pqrs::count();
-    $mensajesPendientes  = pqrs::where('estado', 'pendiente')->count();
-    $mensajesRespondidos = pqrs::where('estado', 'respondido')->count();
+    {
+        $totalMensajes       = pqrs::count();
+        $mensajesPendientes  = pqrs::where('estado', 'pendiente')->count();
+        $mensajesRespondidos = pqrs::where('estado', 'respondido')->count();
 
-    return view('dashboard', compact('totalMensajes', 'mensajesPendientes', 'mensajesRespondidos'));
-}
+        return view('dashboard', compact('totalMensajes', 'mensajesPendientes', 'mensajesRespondidos'));
+    }
 }
