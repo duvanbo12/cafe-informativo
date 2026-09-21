@@ -199,8 +199,7 @@
         <div class="tg-category-title">☕ Bebidas</div>
         <div class="row">
             @php
-                $bebidasIds = [1, 2, 3, 4, 5, 6];
-                $bebidas = $productos->whereIn('id', $bebidasIds);
+                $bebidas = $productos->take(6);
             @endphp
             @foreach($bebidas as $producto)
             <div class="col-md-6">
@@ -228,8 +227,7 @@
         <div class="tg-category-title">🥐 Comidas</div>
         <div class="row">
             @php
-                $comidasIds = [7, 8, 9, 10, 11, 12];
-                $comidas = $productos->whereIn('id', $comidasIds);
+                $comidas = $productos->skip(6)->take(6);
             @endphp
             @foreach($comidas as $producto)
             <div class="col-md-6">
