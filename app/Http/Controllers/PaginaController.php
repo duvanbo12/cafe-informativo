@@ -30,7 +30,7 @@ class PaginaController extends Controller
 
     public function menu()
     {
-        $productos = producto::all();
+        $productos = \App\Models\Producto::all();
 
         $miPedido = session()->get('pedido', []);
 
