@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\pqrs;
+use App\Models\Pqrs;
 use App\Models\Producto;
 use App\Models\Pedido;
 
@@ -109,8 +109,6 @@ class PaginaController extends Controller
     }
 
     // ─── Dashboard ────────────────────────────────────────────────────────────
-
-// ─── Dashboard ────────────────────────────────────────────────────────────
 
     public function inicioDashboard()
     {
