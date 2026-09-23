@@ -100,7 +100,7 @@
     <div class="tg-card">
 
         <div class="tg-logo">
-            <h1>Tinto Galeras</h1>
+            <h1>Tinto Nariño</h1>
             <p>Crea tu cuenta</p>
         </div>
 
