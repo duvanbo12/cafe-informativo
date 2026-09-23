@@ -214,12 +214,10 @@
                             <span class="tg-current-price">${{ number_format($producto->precio, 0, ',', '.') }}</span>
                         </div>
                     </div>
-                    @if(isset($producto->id))
-                    <form action="{{ route('pedido.agregar', $producto->id) }}" method="POST">
+                    <form action="{{ route('pedido.agregar', $producto->id) }}" method="POST" class="mb-0">
                         @csrf
                         <button type="submit" class="tg-btn-plus" title="Agregar">+</button>
                     </form>
-                    @endif
                 </div>
             </div>
             @endforeach
@@ -244,12 +242,10 @@
                             <span class="tg-current-price">${{ number_format($producto->precio, 0, ',', '.') }}</span>
                         </div>
                     </div>
-                    @if(isset($producto->id))
-                    <form action="{{ route('pedido.agregar', $producto->id) }}" method="POST">
+                    <form action="{{ route('pedido.agregar', $producto->id) }}" method="POST" class="mb-0">
                         @csrf
                         <button type="submit" class="tg-btn-plus" title="Agregar">+</button>
                     </form>
-                    @endif
                 </div>
             </div>
             @endforeach
