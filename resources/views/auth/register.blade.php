@@ -12,6 +12,9 @@
             box-shadow: 0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.10);
             animation: fadeUp 0.5s ease both;
             font-family: 'Lato', sans-serif;
+            width: 100%;
+            max-width: 440px;
+            margin: 2rem auto;
         }
         @keyframes fadeUp {
             from { opacity:0; transform:translateY(18px); }
@@ -167,7 +170,7 @@
 
             <button type="submit" class="tg-btn">Crear cuenta</button>
 
-            <div class="text-center mt-4">
+            <div class="text-center mt-4" style="text-align: center; margin-top: 1rem;">
                 <a class="tg-link" href="{{ route('login') }}">
                     ¿Ya tienes cuenta? Inicia sesión
                 </a>
@@ -182,9 +185,9 @@
             const colors = ['#e24b4a','#ef9f27','#c9a87c','#1D9E75'];
             const labels = ['Muy débil','Regular','Buena','Segura'];
             let score = 0;
-            if (val.length >= 8)          score++;
-            if (/[A-Z]/.test(val))        score++;
-            if (/[0-9]/.test(val))        score++;
+            if (val.length >= 8)        score++;
+            if (/[A-Z]/.test(val))      score++;
+            if (/[0-9]/.test(val))      score++;
             if (/[^A-Za-z0-9]/.test(val)) score++;
             bars.forEach((b, i) => b.style.background = i < score ? colors[score-1] : 'rgba(201,168,124,0.15)');
             label.textContent = val.length > 0 ? labels[score-1] : '';
