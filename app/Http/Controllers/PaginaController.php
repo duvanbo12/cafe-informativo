@@ -110,11 +110,20 @@ class PaginaController extends Controller
 
     // ─── Dashboard ────────────────────────────────────────────────────────────
 
+// ─── Dashboard ────────────────────────────────────────────────────────────
+
     public function inicioDashboard()
     {
-        $totalMensajes       = pqrs::count();
-        $mensajesPendientes  = pqrs::where('estado', 'pendiente')->count();
-        $mensajesRespondidos = pqrs::where('estado', 'respondido')->count();
+        $totalMensajes       = Pqrs::count();
+        $mensajesPendientes  = 0;
+        $mensajesRespondidos = 0;
+
+        try {
+            $mensajesPendientes  = Pqrs::where('estado', 'pendiente')->count();
+            $mensajesRespondidos = Pqrs::where('estado', 'respondido')->count();
+        } catch (\Exception $e) {
+            // Evita el error 500 si la columna estado aún no existe en producción
+        }
 
         return view('dashboard', compact('totalMensajes', 'mensajesPendientes', 'mensajesRespondidos'));
     }
