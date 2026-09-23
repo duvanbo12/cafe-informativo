@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Pqrs;
 use Illuminate\Http\Request; 
 
@@ -8,7 +9,6 @@ class PqrsController extends Controller
 {
     public function store(Request $request)
     {
-        
         $validated = $request->validate([
             'nombres'   => 'required|string|max:100',
             'apellidos' => 'required|string|max:100',
@@ -21,7 +21,7 @@ class PqrsController extends Controller
         Pqrs::create([
             'nombres'   => $request->nombres,
             'apellidos' => $request->apellidos,
-            'correos'   => $request->correos,
+            'correo'    => $request->correos, // Ajustado a la columna en singular de la BD
             'tipo'      => $request->tipo,
             'mensaje'   => $request->mensaje,
             'acepto'    => $request->has('acepto'),
@@ -52,12 +52,12 @@ class PqrsController extends Controller
             'mensaje'   => 'required|string',
         ]);
 
-        $mensaje = Pqrs::findOrFail($id);  //  findOrFail 
+        $mensaje = Pqrs::findOrFail($id);  
 
-        $mensaje->update([                 
+        $mensaje->update([                
             'nombres'   => $request->nombres,
             'apellidos' => $request->apellidos,
-            'correos'   => $request->correos,
+            'correo'    => $request->correos, // Ajustado a la columna en singular de la BD
             'tipo'      => $request->tipo,
             'mensaje'   => $request->mensaje,
             'acepto'    => $request->has('acepto'),
