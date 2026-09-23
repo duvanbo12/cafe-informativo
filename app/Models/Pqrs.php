@@ -10,7 +10,7 @@ class Pqrs extends Model
     protected $fillable = [
         'nombres',
         'apellidos',
-        'correos',
+        'correo',
         'tipo',
         'mensaje',
         'acepto',
