@@ -117,8 +117,8 @@
 
     <div class="tg-card">
         <div class="tg-logo">
-            <h1>Tinto Galeras</h1>
-            <p>Pasto, Nariño — Desde el corazón del café</p>
+            <h1>Tinto Nariño</h1>
+            <p>Nariño — Desde el corazón del café</p>
         </div>
 
         <div class="tg-divider">
