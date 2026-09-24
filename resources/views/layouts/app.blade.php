@@ -183,10 +183,13 @@
 {{-- Navbar Artesanal Unificado --}}
 <nav class="navbar navbar-expand-lg artisanal-navbar">
     <div class="container">
-        <!-- Logo -->
-        <a class="artisanal-brand" href="{{ route('inicio') }}">
-            Tinto Nariño
-            <span>Cafetería de especialidad</span>
+        <!-- Logo con imagen -->
+        <a class="artisanal-brand d-flex align-items-center gap-2 text-decoration-none" href="{{ route('inicio') }}">
+            <img src="{{ asset('Tinto_nariño.jpg') }}" alt="Tinto Nariño Logo" style="height: 48px; width: 48px; object-fit: cover;" class="rounded-circle shadow-sm bg-white">
+            <div>
+                Tinto Nariño
+                <span>Cafetería de especialidad</span>
+            </div>
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuArtesanal">
