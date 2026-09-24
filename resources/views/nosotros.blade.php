@@ -270,7 +270,7 @@
 
     <hr style="border-color: rgba(92, 58, 33, 0.2); margin: 4rem 0;">
 
-    {{-- Formulario PQRS Estilizado --}}
+    {{-- Buzón de PQRS Protegido con @auth --}}
     <div class="row justify-content-center mb-5">
         <div class="col-lg-8">
             <div class="tg-category-title">📬 Buzón de PQRS</div>
@@ -283,49 +283,64 @@
             @endif
 
             <div class="tg-pqrs-container">
-                <form action="{{ route('pqrs.store') }}" method="POST">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Nombres</label>
-                            <input type="text" name="nombres" class="form-control @error('nombres') is-invalid @enderror" value="{{ old('nombres') }}" required>
-                            @error('nombres') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                @auth
+                    {{-- SI HA INICIADO SESIÓN: Muestra el formulario completo --}}
+                    <form action="{{ route('pqrs.store') }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Nombres</label>
+                                <input type="text" name="nombres" class="form-control @error('nombres') is-invalid @enderror" value="{{ old('nombres') }}" required>
+                                @error('nombres') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Apellidos</label>
+                                <input type="text" name="apellidos" class="form-control @error('apellidos') is-invalid @enderror" value="{{ old('apellidos') }}" required>
+                                @error('apellidos') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Apellidos</label>
-                            <input type="text" name="apellidos" class="form-control @error('apellidos') is-invalid @enderror" value="{{ old('apellidos') }}" required>
-                            @error('apellidos') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <div class="mb-3">
+                            <label class="form-label">Correo electrónico</label>
+                            <input type="email" name="correos" class="form-control @error('correos') is-invalid @enderror" value="{{ old('correos') }}" required>
+                            @error('correos') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Tipo de solicitud</label>
+                            <select name="tipo" class="form-select">
+                                <option value="Queja" {{ old('tipo') == 'Queja' ? 'selected' : '' }}>Queja</option>
+                                <option value="Petición" {{ old('tipo') == 'Petición' ? 'selected' : '' }}>Petición</option>
+                                <option value="Felicitación" {{ old('tipo') == 'Felicitación' ? 'selected' : '' }}>Felicitación</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Mensaje</label>
+                            <textarea name="mensaje" class="form-control @error('mensaje') is-invalid @enderror" rows="4" required>{{ old('mensaje') }}</textarea>
+                            @error('mensaje') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+                        <div class="form-check mb-4">
+                            <input class="form-check-input @error('acepto') is-invalid @enderror" type="checkbox" name="acepto" value="1" {{ old('acepto') ? 'checked' : '' }} required>
+                            <label class="form-check-label" style="font-size: 0.85rem; color: #3b200e; font-weight: 500;">Acepto términos y condiciones</label>
+                            @error('acepto') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+                        <button type="submit" class="tg-btn-enviar w-100">
+                            Enviar Solicitud
+                        </button>
+                    </form>
+                @else
+                    {{-- SI ES VISITANTE (NO HA INICIADO SESIÓN): Muestra aviso elegante con botones de acceso --}}
+                    <div class="text-center py-4 px-3">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">🔒</div>
+                        <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: #2c150b; font-weight: 600; margin-bottom: 0.5rem;">Se requiere iniciar sesión</h4>
+                        <p class="mb-4" style="font-size: 0.88rem; color: #5c3a21;">Para enviar una Petición, Queja o Reclamo y dar un seguimiento adecuado, por favor ingresa a tu cuenta o regístrate.</p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="{{ route('login') }}" class="btn tg-btn-enviar px-4 text-decoration-none">Iniciar Sesión</a>
+                            <a href="{{ route('register') }}" class="btn btn-outline-dark px-4" style="border-color: #5c3a21; color: #5c3a21; font-weight: 600; border-radius: 10px;">Registrarse</a>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Correo electrónico</label>
-                        <input type="email" name="correos" class="form-control @error('correos') is-invalid @enderror" value="{{ old('correos') }}" required>
-                        @error('correos') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Tipo de solicitud</label>
-                        <select name="tipo" class="form-select">
-                            <option value="Queja" {{ old('tipo') == 'Queja' ? 'selected' : '' }}>Queja</option>
-                            <option value="Petición" {{ old('tipo') == 'Petición' ? 'selected' : '' }}>Petición</option>
-                            <option value="Felicitación" {{ old('tipo') == 'Felicitación' ? 'selected' : '' }}>Felicitación</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Mensaje</label>
-                        <textarea name="mensaje" class="form-control @error('mensaje') is-invalid @enderror" rows="4" required>{{ old('mensaje') }}</textarea>
-                        @error('mensaje') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
-                    <div class="form-check mb-4">
-                        <input class="form-check-input @error('acepto') is-invalid @enderror" type="checkbox" name="acepto" value="1" {{ old('acepto') ? 'checked' : '' }} required>
-                        <label class="form-check-label" style="font-size: 0.85rem; color: #3b200e; font-weight: 500;">Acepto términos y condiciones</label>
-                        @error('acepto') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
-                    <button type="submit" class="tg-btn-enviar w-100">
-                        Enviar Solicitud
-                    </button>
-                </form>
+                @endauth
+
                 <small class="text-center d-block mt-3" style="color: #7a4f30; font-size: 0.75rem;">
-                    Este formulario es únicamente informativo.
+                    Este buzón es seguro y exclusivo para nuestra comunidad registrada.
                 </small>
             </div>
         </div>
