@@ -8,8 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <link rel="stylesheet"
-    href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
@@ -22,6 +21,63 @@
             background-attachment: fixed;
             background-position: center;
             background-blend-mode: overlay;
+        }
+
+        /* Estilos del Navbar Artesanal */
+        .artisanal-navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #f0f0f0;
+            padding: 0.8rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1030;
+        }
+        .artisanal-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+        .artisanal-brand span {
+            display: block;
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #6c757d;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 400;
+        }
+        .artisanal-nav-link {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #333333 !important;
+            margin-right: 1.5rem;
+            transition: color 0.2s;
+        }
+        .artisanal-nav-link:hover {
+            color: #000000 !important;
+        }
+        .artisanal-btn-order {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0.7rem 1.2rem;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            display: inline-block;
+        }
+        .artisanal-btn-order:hover {
+            background-color: #333333;
+            color: #ffffff;
         }
 
         .tg-footer-main {
@@ -120,67 +176,66 @@
             font-family: 'DM Sans', sans-serif;
         }
         .tg-footer-bottom strong { color: #ffffff; }
-        .navbar { padding: 1.5rem 0; }
-        .navbar-brand { font-size: 1.5rem; }
-        .nav-link { font-size: 1.1rem; }
     </style>
 </head>
 <body>
 
-{{-- Navbar --}}
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #000000;">
+{{-- Navbar Artesanal Unificado --}}
+<nav class="navbar navbar-expand-lg artisanal-navbar">
     <div class="container">
-        <a class="navbar-brand fw-bold" style="font-family: 'Playfair Display', serif;"
-           href="{{ route('inicio') }}">☕ Tinto Nariño</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+        <!-- Logo -->
+        <a class="artisanal-brand" href="{{ route('inicio') }}">
+            Tinto Nariño
+            <span>Cafetería de especialidad</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuArtesanal">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="menu">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="{{ route('inicio') }}">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('menu') }}">Menú</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('nosotros') }}">Nosotros</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('contacto') }}">Contacto</a></li>
+
+        <div class="collapse navbar-collapse" id="menuArtesanal">
+            <!-- Enlaces Centrados / Izquierda -->
+            <ul class="navbar-nav mx-auto align-items-lg-center">
+                <li class="nav-item"><a class="nav-link artisanal-nav-link" href="{{ route('inicio') }}">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link artisanal-nav-link" href="{{ route('menu') }}">Menú</a></li>
+                <li class="nav-item"><a class="nav-link artisanal-nav-link" href="{{ route('nosotros') }}">Nosotros</a></li>
+                <li class="nav-item"><a class="nav-link artisanal-nav-link" href="{{ route('contacto') }}">Contacto</a></li>
+                
+                @auth
+                    <li class="nav-item"><a class="nav-link artisanal-nav-link" href="{{ route('dashboard') }}">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link artisanal-nav-link" href="{{ route('mensajes') }}">Mensajes</a></li>
+                @endauth
+            </ul>
+
+            <!-- Botón CTA y Usuario a la Derecha -->
+            <div class="d-flex align-items-center gap-3">
+                <a href="{{ route('menu') }}" class="artisanal-btn-order">¡Ordene ahora!</a>
 
                 @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">
-                            <i class="bi bi-box-arrow-in-right"></i> Login
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">
-                            <i class="bi bi-person-plus"></i> Registro
-                        </a>
-                    </li>
+                    <div class="d-flex gap-2">
+                        <a href="{{ route('login') }}" class="btn btn-outline-dark btn-sm text-uppercase fw-semibold" style="font-size: 0.75rem; letter-spacing: 1px;">Login</a>
+                        <a href="{{ route('register') }}" class="btn btn-dark btn-sm text-uppercase fw-semibold" style="font-size: 0.75rem; letter-spacing: 1px;">Registro</a>
+                    </div>
                 @endguest
 
                 @auth
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('dashboard') }}">
-                            <i class="bi bi-speedometer2"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('mensajes') }}">
-                            <i class="bi bi-envelope"></i> Mensajes
-                        </a>
-                    </li>
-                    <li class="nav-item d-flex align-items-center">
-                        <span class="nav-link text-warning">
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-sm dropdown-toggle text-uppercase fw-semibold" type="button" data-bs-toggle="dropdown" style="font-size: 0.75rem; letter-spacing: 1px;">
                             <i class="bi bi-person-circle"></i> {{ Auth::user()->name }}
-                        </span>
-                    </li>
-                    <li class="nav-item">
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="btn btn-link nav-link">
-                                <i class="bi bi-box-arrow-right"></i> Salir
-                            </button>
-                        </form>
-                    </li>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-danger text-uppercase fw-semibold" style="font-size: 0.7rem;">
+                                        <i class="bi bi-box-arrow-right"></i> Salir
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
                 @endauth
-            </ul>
+            </div>
         </div>
     </div>
 </nav>
@@ -237,15 +292,16 @@
         Desarrollado por: <strong>Duvan Botina, </strong><strong>Miguel Legarda, </strong><strong>Luis Dorado</strong> & <strong>Karen Ortega</strong>
     </div>
 </footer>
- <script> 
- $(document).ready(function(){
+
+<script> 
+$(document).ready(function(){
     $('#tablaMensajes').DataTable({
         language: {
             emptyTable: "No hay mensajes registrados."
         }
     });
- })
- </script>
+})
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
