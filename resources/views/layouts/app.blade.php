@@ -34,16 +34,17 @@
         }
         .artisanal-brand {
             font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: #1a1a1a;
             text-decoration: none;
             letter-spacing: 0.5px;
+            white-space: nowrap;
         }
         .artisanal-brand span {
             display: block;
-            font-size: 0.65rem;
-            letter-spacing: 3px;
+            font-size: 0.6rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
             color: #6c757d;
             font-family: 'DM Sans', sans-serif;
@@ -56,7 +57,7 @@
             letter-spacing: 1.5px;
             text-transform: uppercase;
             color: #333333 !important;
-            margin-right: 1.5rem;
+            margin-right: 1.2rem;
             transition: color 0.2s;
         }
         .artisanal-nav-link:hover {
@@ -183,9 +184,9 @@
 {{-- Navbar Artesanal Unificado --}}
 <nav class="navbar navbar-expand-lg artisanal-navbar">
     <div class="container">
-        <!-- Logo con imagen -->
+        <!-- Logo con imagen desde la carpeta public/image/ con la T mayúscula -->
         <a class="artisanal-brand d-flex align-items-center gap-2 text-decoration-none" href="{{ route('inicio') }}">
-            <img src="{{ asset('Tinto_nariño.jpg') }}" alt="Tinto Nariño Logo" style="height: 48px; width: 48px; object-fit: cover;" class="rounded-circle shadow-sm bg-white">
+            <img src="{{ asset('image/Tinto_narino.jpg') }}" alt="Logo" style="height: 42px; width: 42px; min-width: 42px; object-fit: cover;" class="rounded-circle shadow-sm bg-white">
             <div>
                 Tinto Nariño
                 <span>Cafetería de especialidad</span>
